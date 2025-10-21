@@ -1,4 +1,5 @@
-import type { ReactNode, Suspense } from 'react';
+import type { ReactNode } from 'react';
+import { Suspense } from 'react';
 import {
   SidebarProvider,
   Sidebar,
@@ -15,11 +16,13 @@ import { getUser } from '@/lib/mock-data';
 import type { UserRole } from '@/lib/types';
 
 export default function AppLayout({
-  children
+  children,
+  params
 }: {
   children: ReactNode;
+  params: { role?: UserRole };
 }) {
-  const role: UserRole = 'donor'; // layouts don't receive searchParams. Defaulting role.
+  const role: UserRole = params?.role || 'donor'; // layouts don't receive searchParams. Defaulting role.
   const user = getUser(role);
 
   return (
