@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from "react";
@@ -80,7 +81,7 @@ export default function MatchesPage() {
                                 <CardHeader className="flex-row items-center gap-4">
                                      <Avatar className="h-12 w-12">
                                         <AvatarImage src={`https://picsum.photos/seed/${ngo.id}/100/100`} />
-                                        <AvatarFallback>{ngo.name.charAt(0)}</AvatarFallback>
+                                        <AvatarFallback>{ngo.name ? ngo.name.charAt(0) : 'N'}</AvatarFallback>
                                     </Avatar>
                                     <div>
                                         <CardTitle>{ngo.name}</CardTitle>
