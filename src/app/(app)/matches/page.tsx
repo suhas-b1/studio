@@ -10,11 +10,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { Ngo } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
+import { NgoDetailsDialog } from "@/components/donations/ngo-details-dialog";
 
 export default function MatchesPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [matches, setMatches] = useState<Ngo[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [selectedNgo, setSelectedNgo] = useState<Ngo | null>(null);
     const { toast } = useToast();
 
     const handleGenerate = async () => {
@@ -38,6 +40,7 @@ export default function MatchesPage() {
     };
 
     return (
+        <>
         <div className="container mx-auto py-8 px-4 md:px-8">
             <div className="mb-8 text-center">
                 <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
@@ -85,14 +88,14 @@ export default function MatchesPage() {
                                     </Avatar>
                                     <div>
                                         <CardTitle>{ngo.name}</CardTitle>
-                                        <CardDescription>{ngo.contactInformation}</CardDescription>
+                                        <CardDescription>{ngo.distance} away</CardDescription>
                                     </div>
                                 </CardHeader>
                                 <CardContent className="flex-1">
                                     <p className="text-sm text-muted-foreground italic">"{ngo.reasonForMatch}"</p>
                                 </CardContent>
                                 <div className="p-4 pt-0">
-                                    <Button className="w-full">Contact NGO</Button>
+                                    <Button className="w-full" onClick={() => setSelectedNgo(ngo)}>Contact NGO</Button>
                                 </div>
                             </Card>
                         ))}
@@ -100,5 +103,11 @@ export default function MatchesPage() {
                 </div>
             )}
         </div>
+        <NgoDetailsDialog 
+            ngo={selectedNgo}
+            open={!!selectedNgo}
+            onOpenChange={(open) => !open && setSelectedNgo(null)}
+        />
+        </>
     );
 }

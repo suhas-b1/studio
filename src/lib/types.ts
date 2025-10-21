@@ -32,7 +32,10 @@ export type Donation = {
 export type Ngo = {
     id: string;
     name: string;
-    contactInformation: string;
+    email: string;
+    phone: string;
+    address: string;
+    distance: string;
     reasonForMatch: string;
 };
 

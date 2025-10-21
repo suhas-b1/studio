@@ -8,6 +8,7 @@ import {
 import {
   matchFoodDonationsWithNGOs
 } from '@/ai/flows/match-food-donations-with-ngos';
+import type { Ngo } from '@/lib/types';
 
 export async function suggestTitlesAction(
   input: SuggestFoodListingTitlesInput
@@ -24,12 +25,12 @@ export async function suggestTitlesAction(
   }
 }
 
-export async function generateMatchesAction() {
+export async function generateMatchesAction(): Promise<{ matches?: Ngo[]; error?: string; }> {
     try {
         // This input is more realistic for a smart matching scenario.
         const realisticInput = {
             foodListingDetails: '25 kg of fresh, mixed organic vegetables (carrots, bell peppers, spinach). Best if used within 3 days. Ready for immediate pickup.',
-            ngoRequirements: '1. Urban Food Bank: Requires fresh produce for their soup kitchen, serves 200 meals daily. 2. St. Jude\'s Shelter: Needs vegetables for family meal boxes, pickup required. 3. City Harvest Collective: Accepts bulk produce, has refrigerated trucks for transport.',
+            ngoRequirements: '1. Urban Food Bank: Requires fresh produce for their soup kitchen, serves 200 meals daily. Located at 456 Main St. 2. St. Jude\'s Shelter: Needs vegetables for family meal boxes, pickup required. Find them at 789 Oak Ave. 3. City Harvest Collective: Accepts bulk produce, has refrigerated trucks for transport. Based at 101 Pine Ln.',
             donorLocation: 'Greenleaf Organics, 123 Market St, Springfield',
         };
         const result = await matchFoodDonationsWithNGOs(realisticInput);

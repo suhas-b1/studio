@@ -23,7 +23,10 @@ export type MatchFoodDonationsInput = z.infer<typeof MatchFoodDonationsInputSche
 
 const MatchedNgoSchema = z.object({
   ngoName: z.string().describe('The name of the matched NGO.'),
-  contactInformation: z.string().describe('Contact information for the NGO.'),
+  address: z.string().describe("The full address of the NGO."),
+  phone: z.string().describe("The contact phone number for the NGO."),
+  email: z.string().describe("The contact email address for the NGO."),
+  distance: z.string().describe("The distance from the donor, including units (e.g., '2.5 km')."),
   reasonForMatch: z.string().describe('Why this NGO was matched with the donation.'),
 });
 
@@ -46,8 +49,8 @@ const prompt = ai.definePrompt({
   NGO Requirements: {{{ngoRequirements}}}
   Donor Location: {{{donorLocation}}}
 
-  Return a JSON array of matched NGOs, including their name, contact information, and the reason for the match.
-  Ensure that the output is a valid JSON array and that the reasons for matching the NGOs are clear and concise.
+  Return a JSON array of matched NGOs. For each NGO, include the following fields: ngoName, address, phone, email, distance, and reasonForMatch.
+  Ensure that the output is a valid JSON array and that all requested fields are populated.
   `,
 });
 
