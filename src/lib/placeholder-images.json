@@ -7,58 +7,34 @@
       "imageHint": "community food"
     },
     {
-      "id": "donor-avatar-1",
-      "description": "Avatar for a donor named Maria.",
-      "imageUrl": "https://images.unsplash.com/photo-1611451444023-7fe9d86fe1d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwb3J0cmFpdCUyMHdvbWFufGVufDB8fHx8MTc2MDk0MjUwNnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "portrait woman"
-    },
-    {
-      "id": "ngo-avatar-1",
-      "description": "Avatar for an NGO, Community Kitchen.",
-      "imageUrl": "https://images.unsplash.com/photo-1681935126202-d30965473a2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxidWlsZGluZyUyMHJlc3RhdXJhbnR8ZW58MHx8fHwxNzYxMDI5NTMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "building restaurant"
-    },
-    {
-      "id": "donor-avatar-2",
-      "description": "Avatar for a donor, Grocer's Market.",
-      "imageUrl": "https://images.unsplash.com/photo-1607031542107-f6f46b5d54e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjEwMTgyNDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
-    },
-    {
-      "id": "ngo-avatar-2",
-      "description": "Avatar for an NGO, Shelter of Hope.",
-      "imageUrl": "https://images.unsplash.com/photo-1695067439143-81a61a8c904a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxidWlsZGluZyUyMG1vZGVybnxlbnwwfHx8fDE3NjEwMjk1MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "building modern"
-    },
-    {
-      "id": "food-canned-tuna",
-      "description": "Stacks of canned tuna.",
-      "imageUrl": "https://images.unsplash.com/photo-1599599810694-b5b37304c847?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDYW5uZWQlMjB0dW5hfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "canned tuna"
-    },
-    {
-      "id": "food-dry-pasta",
-      "description": "A person holding a handful of dry spaghetti.",
-      "imageUrl": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxEUllfUEFTVEF8ZW58MHx8fHwxNzYxMTkzMDIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dry pasta"
+      "id": "food-wheat-bags",
+      "description": "Bags of whole wheat grains.",
+      "imageUrl": "https://images.unsplash.com/photo-1627687912389-989f21bd8c3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "wheat bags"
     },
     {
       "id": "food-rice-bags",
       "description": "Large bags of white rice.",
       "imageUrl": "https://images.unsplash.com/photo-1586201375765-c1248ef61713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "large bags rice"
+      "imageHint": "rice bags"
     },
     {
-      "id": "food-canned-soup",
-      "description": "A can of tomato soup.",
-      "imageUrl": "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYW5uZWQlMjBzb3VwfGVufDB8fHx8MTc2MTE5MzAyMXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "canned soup"
+      "id": "food-biryani",
+      "description": "A large pot of chicken biryani.",
+      "imageUrl": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "chicken biryani"
     },
     {
-      "id": "food-uht-milk",
-      "description": "Cartons of UHT milk on a shelf.",
-      "imageUrl": "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJ0b25zJTIwb2YlMjBtaWxrfGVufDB8fHx8MTc2MTE5MzAyMXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cartons milk"
+      "id": "food-chapati-pulao",
+      "description": "Plates of Indian food including chapati and pulao rice.",
+      "imageUrl": "https://plus.unsplash.com/premium_photo-1695299440026-b8237b60aa68?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "chapati pulao"
+    },
+    {
+      "id": "food-pastries",
+      "description": "A tray of assorted sweet pastries.",
+      "imageUrl": "https://images.unsplash.com/photo-1599785209707-a456fc1337bb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "assorted pastries"
     }
   ]
 }
