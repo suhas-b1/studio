@@ -1,3 +1,64 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "community-gathering",
+      "description": "A diverse group of people happily sharing a meal outdoors at a long table.",
+      "imageUrl": "https://images.unsplash.com/photo-1757105258788-54298e46fc95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb21tdW5pdHklMjBmb29kfGVufDB8fHx8MTc2MDk4MDQ1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "community food"
+    },
+    {
+      "id": "donor-avatar-1",
+      "description": "Avatar for a donor named Maria.",
+      "imageUrl": "https://images.unsplash.com/photo-1611451444023-7fe9d86fe1d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwb3J0cmFpdCUyMHdvbWFufGVufDB8fHx8MTc2MDk0MjUwNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "portrait woman"
+    },
+    {
+      "id": "ngo-avatar-1",
+      "description": "Avatar for an NGO, Community Kitchen.",
+      "imageUrl": "https://images.unsplash.com/photo-1681935126202-d30965473a2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxidWlsZGluZyUyMHJlc3RhdXJhbnR8ZW58MHx8fHwxNzYxMDI5NTMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "building restaurant"
+    },
+    {
+      "id": "donor-avatar-2",
+      "description": "Avatar for a donor, Grocer's Market.",
+      "imageUrl": "https://images.unsplash.com/photo-1607031542107-f6f46b5d54e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjEwMTgyNDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "ngo-avatar-2",
+      "description": "Avatar for an NGO, Shelter of Hope.",
+      "imageUrl": "https://images.unsplash.com/photo-1695067439143-81a61a8c904a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxidWlsZGluZyUyMG1vZGVybnxlbnwwfHx8fDE3NjEwMjk1MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "building modern"
+    },
+    {
+      "id": "food-bread",
+      "description": "Close up shot of various freshly baked breads.",
+      "imageUrl": "https://images.unsplash.com/photo-1726749135857-9fad0dc1d23c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxicmVhZCUyMGJha2VyeXxlbnwwfHx8fDE3NjA5NTQ2NDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bread bakery"
+    },
+    {
+      "id": "food-vegetables",
+      "description": "A colorful assortment of fresh vegetables on a wooden table.",
+      "imageUrl": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2ZWdldGFibGVzJTIwbWFya2V0fGVufDB8fHx8MTc2MDk1NDY0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vegetables market"
+    },
+    {
+      "id": "food-pastries",
+      "description": "A display case filled with delicious pastries and croissants.",
+      "imageUrl": "https://images.unsplash.com/photo-1709380146558-bbc94b0f05f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGFzdHJpZXMlMjBjYWZlfGVufDB8fHx8MTc2MTAyOTUzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pastries cafe"
+    },
+    {
+      "id": "food-canned",
+      "description": "Shelves stocked with various canned goods.",
+      "imageUrl": "https://images.unsplash.com/photo-1644375386140-f22123ceeec4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYW5uZWQlMjBnb29kc3xlbnwwfHx8fDE3NjEwMjk1MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "canned goods"
+    },
+    {
+      "id": "food-dairy",
+      "description": "A refrigerator case with milk, yogurt, and cheese.",
+      "imageUrl": "https://images.unsplash.com/photo-1611416668588-f7bb6c15da7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtaWxrJTIwZGFpcnl8ZW58MHx8fHwxNzYxMDI5NTMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "milk dairy"
+    }
+  ]
 }
