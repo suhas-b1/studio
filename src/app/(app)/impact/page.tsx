@@ -72,7 +72,7 @@ const NgoImpactPage = () => {
 
 
 export default function ImpactPage({ searchParams }: { searchParams: { role?: UserRole }}) {
-    const role = use(Promise.resolve(searchParams.role)) || 'donor';
+    const role = use(searchParams)?.role || 'donor';
     return(
         <div className="container mx-auto py-8 px-4 md:px-8">
             {role === 'donor' ? <DonorImpactPage /> : <NgoImpactPage />}

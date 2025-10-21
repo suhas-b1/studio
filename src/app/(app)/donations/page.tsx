@@ -63,7 +63,7 @@ function Filters() {
 }
 
 export default function DonationsPage({ searchParams }: { searchParams: { role?: UserRole }}) {
-  const role = use(Promise.resolve(searchParams.role)) || 'ngo';
+  const role = use(searchParams)?.role || 'ngo';
   const donations = role === 'donor' 
     ? mockDonations.filter(d => d.donorId === 'user-donor-1' || d.donorId === 'user-donor-2')
     : mockDonations.filter(d => d.status === 'available');

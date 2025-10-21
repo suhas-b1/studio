@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export default function ProfilePage({ searchParams }: { searchParams: { role?: UserRole }}) {
-  const role = use(Promise.resolve(searchParams.role)) || 'donor';
+  const role = use(searchParams)?.role || 'donor';
   const user = getUser(role);
 
   return (
