@@ -1,4 +1,5 @@
 
+
 'use client';
 import { use } from 'react';
 import { mockDonations } from "@/lib/mock-data";
@@ -71,7 +72,7 @@ export default function DonationsPage({ searchParams }: { searchParams: { role?:
   // When the user is a donor, filter to show only their donations.
   // When the user is an NGO, show all available donations.
   const donations = role === 'donor' 
-    ? mockDonations.filter(d => d.donor.name === user?.displayName)
+    ? mockDonations.filter(d => d.donorId === user?.uid)
     : mockDonations.filter(d => d.status === 'available');
 
   return (
