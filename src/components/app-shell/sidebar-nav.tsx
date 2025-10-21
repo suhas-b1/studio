@@ -27,7 +27,6 @@ import {
 import type { UserRole } from '@/lib/types';
 
 const commonLinks = [
-    { href: '/profile', label: 'Profile', icon: User },
     { href: '/settings', label: 'Settings', icon: Settings },
     { href: '/help', label: 'Help', icon: LifeBuoy },
     { href: '/feedback', label: 'Feedback', icon: MessageSquare },
@@ -134,6 +133,17 @@ export function SidebarNav({ role }: { role: UserRole }) {
       {role === 'donor' ? donorMenu : ngoMenu}
       
        <SidebarMenu className="mt-auto">
+        <SidebarMenuItem>
+            <Link href={getHref('/profile')}>
+                <SidebarMenuButton
+                    isActive={pathname === '/profile'}
+                    tooltip={'Profile'}
+                >
+                    <User />
+                    <span>Profile</span>
+                </SidebarMenuButton>
+            </Link>
+        </SidebarMenuItem>
         {commonLinks.map((link) => (
             <SidebarMenuItem key={link.href}>
                 <Link href={`${link.href}?role=${role}`}>
