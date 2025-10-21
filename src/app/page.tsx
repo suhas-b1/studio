@@ -87,8 +87,8 @@ export default function Home() {
                 <Card className="flex h-full flex-col justify-between transition-all hover:scale-105 hover:shadow-xl">
                    <CardHeader>
                     <div className="flex items-center gap-4">
-                      <div className="rounded-full bg-accent/20 p-3">
-                        <Building className="h-8 w-8 text-accent" />
+                      <div className="rounded-full bg-teal-500/20 p-3">
+                        <Building className="h-8 w-8 text-teal-500" />
                       </div>
                       <CardTitle className="text-2xl font-headline">Recipient</CardTitle>
                     </div>
