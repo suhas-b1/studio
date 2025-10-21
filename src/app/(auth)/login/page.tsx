@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useAuth } from '@/firebase';
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, AuthError } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
@@ -62,7 +62,8 @@ export default function LoginPage() {
     } catch (error: any) {
       console.error(error);
       let description = 'An unknown error occurred. Please try again.';
-      if (error instanceof AuthError) {
+      // Check for Firebase Auth error codes
+      if (error.code) {
         switch (error.code) {
           case 'auth/invalid-credential':
             description = 'The email or password you entered is incorrect. Please double-check and try again.';
