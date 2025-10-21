@@ -1,12 +1,9 @@
 
-
 'use client';
-import { use } from 'react';
+
 import { Bell, Brush, User as UserIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { getUser } from '@/lib/mock-data';
-import type { UserRole } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,10 +16,53 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useUser } from '@/firebase';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export default function SettingsPage({ searchParams }: { searchParams: { role?: UserRole }}) {
-  const role = use(searchParams)?.role || 'donor';
-  const user = getUser(role);
+export default function SettingsPage() {
+  const { user, isUserLoading } = useUser();
+
+  if (isUserLoading || !user) {
+    return (
+      <div className="container mx-auto py-8 px-4 md:px-8">
+        <div className="mb-8">
+          <Skeleton className="h-9 w-48 mb-2" />
+          <Skeleton className="h-4 w-72" />
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="md:col-span-1">
+            <Card>
+              <CardHeader className="text-center items-center">
+                <Skeleton className="w-24 h-24 rounded-full mb-4" />
+                <Skeleton className="h-6 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-1/2" />
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="md:col-span-2">
+            <Card>
+              <CardHeader>
+                <Skeleton className="h-6 w-1/3" />
+                <Skeleton className="h-4 w-2/3" />
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-10 w-full" />
+                  </div>
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-10 w-full" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-8 px-4 md:px-8">
@@ -36,10 +76,10 @@ export default function SettingsPage({ searchParams }: { searchParams: { role?: 
             <Card>
                  <CardHeader className="text-center items-center">
                     <Avatar className="w-24 h-24 mb-4 border-4 border-primary/50">
-                        <AvatarImage src={user.avatarUrl} alt={user.name} />
-                        <AvatarFallback className="text-4xl">{user.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? ''} />
+                        <AvatarFallback className="text-4xl">{user.displayName?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                     </Avatar>
-                    <CardTitle className="text-2xl font-headline">{user.organizationName}</CardTitle>
+                    <CardTitle className="text-2xl font-headline">{user.displayName}</CardTitle>
                     <CardDescription>{user.email}</CardDescription>
                 </CardHeader>
             </Card>
@@ -57,16 +97,12 @@ export default function SettingsPage({ searchParams }: { searchParams: { role?: 
                 <CardContent>
                     <form className="space-y-6">
                         <div className="space-y-2">
-                        <Label htmlFor="orgName">Organization Name</Label>
-                        <Input id="orgName" defaultValue={user.organizationName} />
-                        </div>
-                         <div className="space-y-2">
-                        <Label htmlFor="contactName">Contact Person</Label>
-                        <Input id="contactName" defaultValue={user.name} />
+                        <Label htmlFor="displayName">Display Name</Label>
+                        <Input id="displayName" defaultValue={user.displayName ?? ''} />
                         </div>
                         <div className="space-y-2">
                         <Label htmlFor="email">Email Address</Label>
-                        <Input id="email" type="email" defaultValue={user.email} />
+                        <Input id="email" type="email" defaultValue={user.email ?? ''} readOnly />
                         </div>
                         <div className="flex justify-end">
                             <Button>Save Profile</Button>
