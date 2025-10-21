@@ -1,3 +1,4 @@
+
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -12,17 +13,23 @@ import {
   Settings,
   LifeBuoy,
   MessageSquare,
+  ChevronDown,
+  Building,
+  Utensils,
 } from 'lucide-react';
-
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarGroupContent,
 } from '@/components/ui/sidebar';
 import type { UserRole } from '@/lib/types';
+import { cn } from '@/lib/utils';
+import React from 'react';
 
 const commonLinks = [
     { href: '/settings', label: 'Settings', icon: Settings },
@@ -30,87 +37,15 @@ const commonLinks = [
     { href: '/feedback', label: 'Feedback', icon: MessageSquare },
 ];
 
-
 export function SidebarNav({ role }: { role: UserRole }) {
   const pathname = usePathname();
 
   const getHref = (href: string) => {
-    if (href.includes('?')) {
-      return href;
-    }
     return `${href}?role=${role}`;
   }
 
-  const donorMenu = (
-    <SidebarGroup>
-      <SidebarGroupLabel>Donor</SidebarGroupLabel>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <Link href={getHref('/donations/new')}>
-              <SidebarMenuButton isActive={pathname === '/donations/new'} tooltip="New Donation">
-                <PlusCircle />
-                <span>New Donation</span>
-              </SidebarMenuButton>
-            </Link>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <Link href={getHref('/donations')}>
-              <SidebarMenuButton isActive={pathname === '/donations'} tooltip="My Donations">
-                <Package />
-                <span>My Donations</span>
-              </SidebarMenuButton>
-            </Link>
-          </SidebarMenuItem>
-           <SidebarMenuItem>
-            <Link href={getHref('/impact')}>
-              <SidebarMenuButton isActive={pathname === '/impact'} tooltip="Impact">
-                <BarChart2 />
-                <span>Impact</span>
-              </SidebarMenuButton>
-            </Link>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
-  );
-
-  const ngoMenu = (
-     <SidebarGroup>
-      <SidebarGroupLabel>Recipient</SidebarGroupLabel>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <Link href={getHref('/donations')}>
-                <SidebarMenuButton
-                    isActive={pathname === '/donations'}
-                    tooltip={'Browse Donations'}
-                >
-                    <Package />
-                    <span>Browse Donations</span>
-                </SidebarMenuButton>
-            </Link>
-        </SidebarMenuItem>
-          <SidebarMenuItem>
-            <Link href={getHref('/matches')}>
-              <SidebarMenuButton isActive={pathname === '/matches'} tooltip="Smart Matches">
-                <BrainCircuit />
-                <span>Smart Matches</span>
-              </SidebarMenuButton>
-            </Link>
-          </SidebarMenuItem>
-           <SidebarMenuItem>
-            <Link href={getHref('/impact')}>
-              <SidebarMenuButton isActive={pathname === '/impact'} tooltip="My Claims">
-                <HeartHandshake />
-                <span>My Claims</span>
-              </SidebarMenuButton>
-            </Link>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
-  );
+  const isDonorSectionActive = ['/donations', '/donations/new', '/impact'].includes(pathname) && role === 'donor';
+  const isNgoSectionActive = ['/donations', '/matches', '/impact'].includes(pathname) && role === 'ngo';
 
   return (
     <>
@@ -128,7 +63,89 @@ export function SidebarNav({ role }: { role: UserRole }) {
         </SidebarMenuItem>
       </SidebarMenu>
 
-      {role === 'donor' ? donorMenu : ngoMenu}
+       <Collapsible defaultOpen={isDonorSectionActive}>
+        <CollapsibleTrigger className="w-full">
+            <SidebarMenuButton
+                variant="default"
+                className="w-full justify-start"
+                 data-state={isDonorSectionActive ? 'open' : 'closed'}
+            >
+                <Utensils className="h-5 w-5" />
+                <span className="flex-1 text-left">Donor</span>
+                <ChevronDown className="h-4 w-4 transition-transform [&[data-state=open]]:-rotate-180" />
+            </SidebarMenuButton>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+            <SidebarMenu className="py-2 pl-6">
+                <SidebarMenuItem>
+                    <Link href={getHref('/donations/new')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/donations/new'} className="w-full justify-start">
+                            <PlusCircle />
+                            <span>New Donation</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                    <Link href={getHref('/donations')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/donations' && role === 'donor'} className="w-full justify-start">
+                            <Package />
+                            <span>My Donations</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                    <Link href={getHref('/impact')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/impact' && role === 'donor'} className="w-full justify-start">
+                            <BarChart2 />
+                            <span>Impact</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
+            </SidebarMenu>
+        </CollapsibleContent>
+       </Collapsible>
+
+        <Collapsible defaultOpen={isNgoSectionActive}>
+        <CollapsibleTrigger className="w-full">
+            <SidebarMenuButton
+                variant="default"
+                className="w-full justify-start"
+                data-state={isNgoSectionActive ? 'open' : 'closed'}
+            >
+                <Building className="h-5 w-5" />
+                <span className="flex-1 text-left">Recipient</span>
+                <ChevronDown className="h-4 w-4 transition-transform [&[data-state=open]]:-rotate-180" />
+            </SidebarMenuButton>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+            <SidebarMenu className="py-2 pl-6">
+                <SidebarMenuItem>
+                    <Link href={getHref('/donations')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/donations' && role === 'ngo'} className="w-full justify-start">
+                            <Package />
+                            <span>Browse Donations</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
+                 <SidebarMenuItem>
+                    <Link href={getHref('/matches')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/matches'} className="w-full justify-start">
+                            <BrainCircuit />
+                            <span>Smart Matches</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                    <Link href={getHref('/impact')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/impact' && role === 'ngo'} className="w-full justify-start">
+                            <HeartHandshake />
+                            <span>My Claims</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
+            </SidebarMenu>
+        </CollapsibleContent>
+       </Collapsible>
       
        <SidebarMenu className="mt-auto">
         {commonLinks.map((link) => (
