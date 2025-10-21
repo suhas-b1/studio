@@ -1,3 +1,4 @@
+
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -103,9 +104,9 @@ export function SidebarNav({ role }: { role: UserRole }) {
           </SidebarMenuItem>
            <SidebarMenuItem>
             <Link href={getHref('/impact')}>
-              <SidebarMenuButton isActive={pathname === '/impact'} tooltip="Claimed">
+              <SidebarMenuButton isActive={pathname === '/impact'} tooltip="My Claims">
                 <HeartHandshake />
-                <span>Claimed</span>
+                <span>My Claims</span>
               </SidebarMenuButton>
             </Link>
           </SidebarMenuItem>
