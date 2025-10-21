@@ -32,7 +32,7 @@ const formSchema = z.object({
   title: z.string().min(5, 'Title must be at least 5 characters.'),
   description: z.string().min(10, 'Description is too short.'),
   quantity: z.string().min(1, 'Quantity is required.'),
-  type: z.enum(['Produce', 'Baked Goods', 'Canned Goods', 'Prepared Meal', 'Dairy']),
+  type: z.enum(['Produce', 'Baked Goods', 'Canned Goods', 'Prepared Meal', 'Dairy', 'Pantry']),
   pickupDeadline: z.date({ required_error: 'A pickup date is required.' }),
   image: z.any().optional(),
 });
@@ -232,6 +232,7 @@ export function NewDonationForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
+                        <SelectItem value="Pantry">Pantry</SelectItem>
                         <SelectItem value="Baked Goods">Baked Goods</SelectItem>
                         <SelectItem value="Produce">Produce</SelectItem>
                         <SelectItem value="Canned Goods">Canned Goods</SelectItem>

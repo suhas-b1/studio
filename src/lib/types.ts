@@ -19,11 +19,11 @@ export type Donation = {
   imageUrl: string;
   imageHint: string;
   quantity: string;
-  type: "Produce" | "Baked Goods" | "Canned Goods" | "Prepared Meal" | "Dairy";
+  type: "Produce" | "Baked Goods" | "Canned Goods" | "Prepared Meal" | "Dairy" | "Pantry";
   pickupDeadline: Date;
   donorId: string;
   donor: User;
-  status: "available" | "claimed" | "picked-up";
+  status: "available" | "claimed" | "picked-up" | "expired";
   claimedByNgoId?: string;
   createdAt: Date;
   distance: number;

@@ -51,6 +51,7 @@ function Filters() {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="pantry">Pantry</SelectItem>
                     <SelectItem value="produce">Produce</SelectItem>
                     <SelectItem value="baked">Baked Goods</SelectItem>
                     <SelectItem value="canned">Canned Goods</SelectItem>
