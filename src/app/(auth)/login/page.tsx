@@ -5,13 +5,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { HandHeart, LogIn, Mail, KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useAuth } from '@/firebase';
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, AuthError } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
@@ -43,6 +43,7 @@ const GoogleIcon = () => (
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const auth = useAuth();
   const { toast } = useToast();
 
@@ -54,15 +55,32 @@ export default function LoginPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
+      const role = searchParams.get('role') || 'donor';
       await signInWithEmailAndPassword(auth, values.email, values.password);
       toast({ title: 'Login successful!' });
-      router.push('/dashboard');
+      router.push(`/dashboard?role=${role}`);
     } catch (error: any) {
       console.error(error);
+      let description = 'An unknown error occurred. Please try again.';
+      if (error instanceof AuthError) {
+        switch (error.code) {
+          case 'auth/invalid-credential':
+            description = 'The email or password you entered is incorrect. Please double-check and try again.';
+            break;
+          case 'auth/user-not-found':
+            description = 'No account found with this email address. You can sign up for a new account.';
+            break;
+          case 'auth/wrong-password':
+             description = 'The password you entered is incorrect. Please try again.';
+             break;
+          default:
+            description = error.message;
+        }
+      }
       toast({
         variant: 'destructive',
         title: 'Login failed',
-        description: error.message,
+        description: description,
       });
     }
     setIsLoading(false);
@@ -71,10 +89,11 @@ export default function LoginPage() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
+      const role = searchParams.get('role') || 'donor';
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
       toast({ title: 'Google sign-in successful!' });
-      router.push('/dashboard');
+      router.push(`/dashboard?role=${role}`);
     } catch (error: any) {
       console.error(error);
       toast({
