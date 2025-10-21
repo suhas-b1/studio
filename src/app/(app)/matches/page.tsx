@@ -76,7 +76,7 @@ export default function MatchesPage() {
                 <div>
                      <h2 className="text-2xl font-bold text-center mb-6 font-headline">Top 3 Matches Found</h2>
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-                        {matches.map((ngo, index) => (
+                        {matches.map((ngo) => (
                             <Card key={ngo.id} className="flex flex-col">
                                 <CardHeader className="flex-row items-center gap-4">
                                      <Avatar className="h-12 w-12">
