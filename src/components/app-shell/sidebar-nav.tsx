@@ -20,21 +20,11 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
 } from '@/components/ui/sidebar';
 import type { UserRole } from '@/lib/types';
-
-const donorLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/donations/new', label: 'New Donation', icon: PlusCircle },
-  { href: '/donations', label: 'My Donations', icon: Package },
-  { href: '/impact', label: 'Impact', icon: BarChart2 },
-];
-
-const ngoLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/matches', label: 'Smart Matches', icon: BrainCircuit },
-  { href: '/impact', label: 'Claimed', icon: HeartHandshake },
-];
 
 const commonLinks = [
     { href: '/profile', label: 'Profile', icon: User },
@@ -46,7 +36,6 @@ const commonLinks = [
 
 export function SidebarNav({ role }: { role: UserRole }) {
   const pathname = usePathname();
-  const links = role === 'donor' ? donorLinks : ngoLinks;
 
   const getHref = (href: string) => {
     if (href.includes('?')) {
@@ -55,24 +44,84 @@ export function SidebarNav({ role }: { role: UserRole }) {
     return `${href}?role=${role}`;
   }
 
+  const donorMenu = (
+    <SidebarGroup>
+      <SidebarGroupLabel>Donor</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <Link href={getHref('/donations/new')}>
+              <SidebarMenuButton isActive={pathname === '/donations/new'} tooltip="New Donation">
+                <PlusCircle />
+                <span>New Donation</span>
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Link href={getHref('/donations')}>
+              <SidebarMenuButton isActive={pathname === '/donations'} tooltip="My Donations">
+                <Package />
+                <span>My Donations</span>
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
+           <SidebarMenuItem>
+            <Link href={getHref('/impact')}>
+              <SidebarMenuButton isActive={pathname === '/impact'} tooltip="Impact">
+                <BarChart2 />
+                <span>Impact</span>
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
+
+  const ngoMenu = (
+     <SidebarGroup>
+      <SidebarGroupLabel>Recipient</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <Link href={getHref('/matches')}>
+              <SidebarMenuButton isActive={pathname === '/matches'} tooltip="Smart Matches">
+                <BrainCircuit />
+                <span>Smart Matches</span>
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
+           <SidebarMenuItem>
+            <Link href={getHref('/impact')}>
+              <SidebarMenuButton isActive={pathname === '/impact'} tooltip="Claimed">
+                <HeartHandshake />
+                <span>Claimed</span>
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
 
   return (
     <>
       <SidebarMenu>
-        {links.map((link) => (
-          <SidebarMenuItem key={link.href}>
-            <Link href={getHref(link.href)}>
-              <SidebarMenuButton
-                isActive={pathname === link.href.split('?')[0]}
-                tooltip={link.label}
-              >
-                <link.icon />
-                <span>{link.label}</span>
-              </SidebarMenuButton>
+        <SidebarMenuItem>
+            <Link href={getHref('/dashboard')}>
+                <SidebarMenuButton
+                    isActive={pathname === '/dashboard'}
+                    tooltip={'Dashboard'}
+                >
+                    <LayoutDashboard />
+                    <span>Dashboard</span>
+                </SidebarMenuButton>
             </Link>
-          </SidebarMenuItem>
-        ))}
+        </SidebarMenuItem>
       </SidebarMenu>
+
+      {role === 'donor' ? donorMenu : ngoMenu}
+      
        <SidebarMenu className="mt-auto">
         {commonLinks.map((link) => (
             <SidebarMenuItem key={link.href}>
