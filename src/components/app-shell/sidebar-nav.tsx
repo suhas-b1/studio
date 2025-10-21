@@ -13,6 +13,7 @@ import {
   Settings,
   LifeBuoy,
   User,
+  MessageSquare,
 } from 'lucide-react';
 
 import {
@@ -40,6 +41,7 @@ const commonLinks = [
     { href: '/profile', label: 'Profile', icon: User },
     { href: '/settings', label: 'Settings', icon: Settings },
     { href: '/help', label: 'Help', icon: LifeBuoy },
+    { href: '/feedback', label: 'Feedback', icon: MessageSquare },
 ];
 
 
