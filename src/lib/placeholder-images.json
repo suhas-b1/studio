@@ -44,9 +44,9 @@
     },
     {
       "id": "food-rice-bags",
-      "description": "Bags of white rice.",
-      "imageUrl": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "bags of rice"
+      "description": "Large bags of white rice.",
+      "imageUrl": "https://images.unsplash.com/photo-1586201375765-c1248ef61713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "large bags rice"
     },
     {
       "id": "food-canned-soup",

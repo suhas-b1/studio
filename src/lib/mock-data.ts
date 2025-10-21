@@ -1,3 +1,4 @@
+
 import type { User, Donation, AppNotification, Ngo, UserRole } from "@/lib/types";
 import { Bell, CheckCircle, Package, Utensils, HeartHandshake } from "lucide-react";
 
@@ -75,8 +76,8 @@ export const mockDonations: Donation[] = [
     id: "donation-3",
     title: "Large Bags of White Rice",
     description: "5 large bags of long-grain white rice. Each bag is 5kg. Perfect pantry staple.",
-    imageUrl: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
-    imageHint: "bags of rice",
+    imageUrl: "https://images.unsplash.com/photo-1586201375765-c1248ef61713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageHint: "large bags rice",
     quantity: "5 bags (25kg total)",
     type: "Pantry",
     pickupDeadline: new Date(new Date().getTime() + 15 * 24 * 60 * 60 * 1000), // 15 days from now
