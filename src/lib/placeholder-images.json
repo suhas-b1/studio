@@ -31,34 +31,34 @@
       "imageHint": "building modern"
     },
     {
-      "id": "food-bread",
-      "description": "Close up shot of various freshly baked breads.",
-      "imageUrl": "https://images.unsplash.com/photo-1726749135857-9fad0dc1d23c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxicmVhZCUyMGJha2VyeXxlbnwwfHx8fDE3NjA5NTQ2NDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "bread bakery"
+      "id": "food-canned-tuna",
+      "description": "Stacks of canned tuna.",
+      "imageUrl": "https://images.unsplash.com/photo-1599599810694-b5b37304c847?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDYW5uZWQlMjB0dW5hfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "canned tuna"
     },
     {
-      "id": "food-vegetables",
-      "description": "A colorful assortment of fresh vegetables on a wooden table.",
-      "imageUrl": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2ZWdldGFibGVzJTIwbWFya2V0fGVufDB8fHx8MTc2MDk1NDY0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "vegetables market"
+      "id": "food-dry-pasta",
+      "description": "A person holding a handful of dry spaghetti.",
+      "imageUrl": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxEUllfUEFTVEF8ZW58MHx8fHwxNzYxMTkzMDIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dry pasta"
     },
     {
-      "id": "food-pastries",
-      "description": "A display case filled with delicious pastries and croissants.",
-      "imageUrl": "https://images.unsplash.com/photo-1709380146558-bbc94b0f05f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGFzdHJpZXMlMjBjYWZlfGVufDB8fHx8MTc2MTAyOTUzMXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "pastries cafe"
+      "id": "food-rice-bags",
+      "description": "Bags of white rice.",
+      "imageUrl": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bags of rice"
     },
     {
-      "id": "food-canned",
-      "description": "Shelves stocked with various canned goods.",
-      "imageUrl": "https://images.unsplash.com/photo-1644375386140-f22123ceeec4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYW5uZWQlMjBnb29kc3xlbnwwfHx8fDE3NjEwMjk1MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "canned goods"
+      "id": "food-canned-soup",
+      "description": "A can of tomato soup.",
+      "imageUrl": "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYW5uZWQlMjBzb3VwfGVufDB8fHx8MTc2MTE5MzAyMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "canned soup"
     },
     {
-      "id": "food-dairy",
-      "description": "A refrigerator case with milk, yogurt, and cheese.",
-      "imageUrl": "https://images.unsplash.com/photo-1611416668588-f7bb6c15da7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtaWxrJTIwZGFpcnl8ZW58MHx8fHwxNzYxMDI5NTMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "milk dairy"
+      "id": "food-uht-milk",
+      "description": "Cartons of UHT milk on a shelf.",
+      "imageUrl": "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJ0b25zJTIwb2YlMjBtaWxrfGVufDB8fHx8MTc2MTE5MzAyMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartons milk"
     }
   ]
 }
