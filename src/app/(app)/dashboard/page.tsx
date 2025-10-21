@@ -1,3 +1,6 @@
+
+'use client';
+import { use } from 'react';
 import { Activity, Users, Package, BarChart, PoundSterling, Truck, HandHeart, HeartPulse } from 'lucide-react';
 import { StatCard } from '@/components/dashboard/stat-card';
 import { mockDonations, impactStats } from '@/lib/mock-data';
@@ -109,8 +112,8 @@ const NgoDashboard = () => {
     )
 }
 
-export default function DashboardPage({ searchParams }: { searchParams: { role: UserRole }}) {
-  const role = searchParams.role || 'donor';
+export default function DashboardPage({ searchParams }: { searchParams: { role?: UserRole }}) {
+  const role = use(Promise.resolve(searchParams.role)) || 'donor';
 
   return (
     <div className="container mx-auto py-8 px-4 md:px-8 space-y-8">

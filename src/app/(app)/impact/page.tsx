@@ -1,3 +1,6 @@
+
+'use client';
+import { use } from 'react';
 import { HandHeart, HeartPulse, BarChart, Truck } from "lucide-react";
 import { impactStats, mockDonations } from "@/lib/mock-data";
 import { StatCard } from "@/components/dashboard/stat-card";
@@ -68,8 +71,8 @@ const NgoImpactPage = () => {
 }
 
 
-export default function ImpactPage({ searchParams }: { searchParams: { role: UserRole }}) {
-    const role = searchParams.role || 'donor';
+export default function ImpactPage({ searchParams }: { searchParams: { role?: UserRole }}) {
+    const role = use(Promise.resolve(searchParams.role)) || 'donor';
     return(
         <div className="container mx-auto py-8 px-4 md:px-8">
             {role === 'donor' ? <DonorImpactPage /> : <NgoImpactPage />}

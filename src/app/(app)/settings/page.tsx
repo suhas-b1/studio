@@ -1,6 +1,7 @@
 
-'use client';
 
+'use client';
+import { use } from 'react';
 import { Bell, Brush, User as UserIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,8 +20,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export default function SettingsPage({ searchParams }: { searchParams: { role: UserRole }}) {
-  const role = searchParams.role || 'donor';
+export default function SettingsPage({ searchParams }: { searchParams: { role?: UserRole }}) {
+  const role = use(Promise.resolve(searchParams.role)) || 'donor';
   const user = getUser(role);
 
   return (

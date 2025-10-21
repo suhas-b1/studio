@@ -1,3 +1,6 @@
+
+'use client';
+import { use } from 'react';
 import { Award } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,8 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function ProfilePage({ searchParams }: { searchParams: { role: UserRole }}) {
-  const role = searchParams.role || 'donor';
+export default function ProfilePage({ searchParams }: { searchParams: { role?: UserRole }}) {
+  const role = use(Promise.resolve(searchParams.role)) || 'donor';
   const user = getUser(role);
 
   return (
