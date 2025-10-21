@@ -8,7 +8,11 @@ import {
 import {
   matchFoodDonationsWithNGOs
 } from '@/ai/flows/match-food-donations-with-ngos';
-import type { Ngo } from '@/lib/types';
+import {
+  findRelevantDonations
+} from '@/ai/flows/find-relevant-donations';
+import type { Donation, Ngo } from '@/lib/types';
+import { mockDonations } from '@/lib/mock-data';
 
 export async function suggestTitlesAction(
   input: SuggestFoodListingTitlesInput
@@ -27,7 +31,6 @@ export async function suggestTitlesAction(
 
 export async function generateMatchesAction(): Promise<{ matches?: Ngo[]; error?: string; }> {
     try {
-        // This input is more realistic for a smart matching scenario.
         const realisticInput = {
             foodListingDetails: '25 kg of fresh, mixed organic vegetables (carrots, bell peppers, spinach). Best if used within 3 days. Ready for immediate pickup.',
             ngoRequirements: '1. Urban Food Bank: Requires fresh produce for their soup kitchen, serves 200 meals daily. Located at 456 Main St. 2. St. Jude\'s Shelter: Needs vegetables for family meal boxes, pickup required. Find them at 789 Oak Ave. 3. City Harvest Collective: Accepts bulk produce, has refrigerated trucks for transport. Based at 101 Pine Ln.',
@@ -35,7 +38,6 @@ export async function generateMatchesAction(): Promise<{ matches?: Ngo[]; error?
         };
         const result = await matchFoodDonationsWithNGOs(realisticInput);
         
-        // Add a unique ID to each match for React keys, as the AI won't provide one.
         const matchesWithIds = result.map((match, index) => ({
             ...match,
             id: `match-${index}-${new Date().getTime()}`
@@ -46,5 +48,36 @@ export async function generateMatchesAction(): Promise<{ matches?: Ngo[]; error?
     } catch (error) {
         console.error('Error generating matches:', error);
         return { error: 'Failed to generate matches due to an internal error.' };
+    }
+}
+
+
+export async function findRelevantDonationsAction(): Promise<{ matches?: Donation[]; error?: string; }> {
+    try {
+        const ngoProfile = {
+            name: "Community Kitchen",
+            location: "789 Oak Ave, Springfield",
+            needs: "We run a soup kitchen serving 200 hot meals daily and also provide family meal boxes. We have a high need for fresh produce, protein, and prepared meals. We have refrigeration and can pick up larger donations."
+        };
+        
+        // In a real app, you'd filter this list based on location, status, etc. before sending to AI.
+        // For this demo, we'll send the whole mock list.
+        const availableDonations = mockDonations.filter(d => d.status === 'available');
+
+        const result = await findRelevantDonations({
+            ngoProfile: ngoProfile,
+            availableDonations: availableDonations
+        });
+        
+        // The AI returns IDs, we need to map them back to the full donation objects
+        const matchedDonations = result.matchedDonationIds
+            .map(id => mockDonations.find(d => d.id === id))
+            .filter((d): d is Donation => !!d);
+
+        return { matches: matchedDonations };
+
+    } catch (error) {
+        console.error('Error finding relevant donations:', error);
+        return { error: 'Failed to find relevant donations due to an internal error.' };
     }
 }
