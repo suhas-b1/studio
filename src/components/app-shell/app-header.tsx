@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { usePathname } from 'next/navigation';
 import { UserNav } from '@/components/common/user-nav';
 import {
@@ -30,7 +31,7 @@ export function AppHeader({ role }: { role: UserRole }) {
               <BreadcrumbLink href={`/dashboard?role=${role}`}>Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
             {segments.map((segment, index) => {
-              if (segment === 'app') return null; // Assuming (app) group folder
+              if (segment === 'dashboard') return null; // Assuming dashboard is the root, so we skip it.
               const href = `/${segments.slice(0, index + 1).join('/')}?role=${role}`;
               const isLast = index === segments.length - 1;
               return (

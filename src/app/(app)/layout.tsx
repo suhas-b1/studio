@@ -15,13 +15,11 @@ import { getUser } from '@/lib/mock-data';
 import type { UserRole } from '@/lib/types';
 
 export default function AppLayout({
-  children,
-  searchParams,
+  children
 }: {
   children: ReactNode;
-  searchParams: { role: UserRole };
 }) {
-  const role = searchParams.role || 'donor';
+  const role: UserRole = 'donor'; // layouts don't receive searchParams. Defaulting role.
   const user = getUser(role);
 
   return (
