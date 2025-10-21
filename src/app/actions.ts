@@ -26,13 +26,22 @@ export async function suggestTitlesAction(
 
 export async function generateMatchesAction() {
     try {
-        const mockInput = {
-            foodListingDetails: '15 boxes of assorted fresh vegetables including lettuce, tomatoes, and cucumbers. Available for immediate pickup.',
-            ngoRequirements: 'Community Kitchen needs fresh produce for their daily meal service. Shelter of Hope requires any non-perishable items. The Food Bank is looking for bulk donations.',
-            donorLocation: 'Downtown, Springfield',
+        // This input is more realistic for a smart matching scenario.
+        const realisticInput = {
+            foodListingDetails: '25 kg of fresh, mixed organic vegetables (carrots, bell peppers, spinach). Best if used within 3 days. Ready for immediate pickup.',
+            ngoRequirements: '1. Urban Food Bank: Requires fresh produce for their soup kitchen, serves 200 meals daily. 2. St. Jude\'s Shelter: Needs vegetables for family meal boxes, pickup required. 3. City Harvest Collective: Accepts bulk produce, has refrigerated trucks for transport.',
+            donorLocation: 'Greenleaf Organics, 123 Market St, Springfield',
         };
-        const result = await matchFoodDonationsWithNGOs(mockInput);
-        return { matches: result };
+        const result = await matchFoodDonationsWithNGOs(realisticInput);
+        
+        // Add a unique ID to each match for React keys, as the AI won't provide one.
+        const matchesWithIds = result.map((match, index) => ({
+            ...match,
+            id: `match-${index}-${new Date().getTime()}`
+        }));
+
+        return { matches: matchesWithIds };
+
     } catch (error) {
         console.error('Error generating matches:', error);
         return { error: 'Failed to generate matches due to an internal error.' };
