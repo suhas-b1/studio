@@ -1,3 +1,5 @@
+
+'use client';
 import Image from "next/image";
 import { formatDistanceToNow } from 'date-fns';
 import { MapPin, Calendar, Clock, Award, XCircle } from "lucide-react";
@@ -7,6 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Donation, UserRole } from "@/lib/types";
+import { ClaimDonationDialog } from "./claim-donation-dialog";
+import { useState } from "react";
 
 const statusColors = {
   available: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 border-green-300 dark:border-green-700',
@@ -16,12 +20,14 @@ const statusColors = {
 };
 
 export function DonationCard({ donation, role }: { donation: Donation; role: UserRole }) {
+  const [isClaiming, setIsClaiming] = useState(false);
 
   const isExpired = new Date() > donation.pickupDeadline;
   const status = isExpired && donation.status !== 'picked-up' ? 'expired' : donation.status;
 
 
   return (
+    <>
     <Card className="flex flex-col overflow-hidden transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
       <CardHeader className="p-0">
         <div className="relative aspect-[16/9] w-full">
@@ -82,7 +88,7 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
             )}
         </div>
         {role === 'ngo' && status === 'available' && (
-          <Button className="w-full bg-accent hover:bg-accent/90">
+          <Button className="w-full bg-accent hover:bg-accent/90" onClick={() => setIsClaiming(true)}>
             Claim Donation
           </Button>
         )}
@@ -93,5 +99,8 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
         )}
       </CardFooter>
     </Card>
+    <ClaimDonationDialog open={isClaiming} onOpenChange={setIsClaiming} donation={donation} />
+    </>
   );
 }
+
