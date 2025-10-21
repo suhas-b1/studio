@@ -12,7 +12,6 @@ import {
   BrainCircuit,
   Settings,
   LifeBuoy,
-  User,
   MessageSquare,
 } from 'lucide-react';
 
@@ -133,17 +132,6 @@ export function SidebarNav({ role }: { role: UserRole }) {
       {role === 'donor' ? donorMenu : ngoMenu}
       
        <SidebarMenu className="mt-auto">
-        <SidebarMenuItem>
-            <Link href={getHref('/profile')}>
-                <SidebarMenuButton
-                    isActive={pathname === '/profile'}
-                    tooltip={'Profile'}
-                >
-                    <User />
-                    <span>Profile</span>
-                </SidebarMenuButton>
-            </Link>
-        </SidebarMenuItem>
         {commonLinks.map((link) => (
             <SidebarMenuItem key={link.href}>
                 <Link href={`${link.href}?role=${role}`}>
