@@ -7,12 +7,6 @@
       "imageHint": "community food"
     },
     {
-      "id": "food-wheat-bags",
-      "description": "Jute bags of whole wheat grains.",
-      "imageUrl": "https://images.unsplash.com/photo-1437252611977-07f74518abd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3aGVhdHxlbnwwfHx8fDE3NjEwNDU5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "jute wheat bags"
-    },
-    {
       "id": "food-rice-bags",
       "description": "Large bags of white rice.",
       "imageUrl": "https://images.unsplash.com/photo-1723475158229-894679ca024e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTA0NTgxNnww&ixlib=rb-4.1.0&q=80&w=1080",

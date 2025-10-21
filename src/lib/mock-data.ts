@@ -52,21 +52,6 @@ const mockUsers: User[] = [
 
 export const mockDonations: Donation[] = [
   {
-    id: "donation-1",
-    title: "10 Bags of Wheat",
-    description: "High-quality whole wheat, 10 bags of 10kg each. Perfect for making chapatis and other bread.",
-    imageUrl: "https://images.unsplash.com/photo-1503431128974-a7313a524495?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageHint: "jute wheat bags",
-    quantity: "10 bags (100kg total)",
-    type: "Pantry",
-    pickupDeadline: new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
-    donorId: "user-donor-1",
-    donor: mockUsers.find(u => u.id === 'user-donor-1')!,
-    status: "available",
-    createdAt: new Date(new Date().getTime() - 1 * 60 * 60 * 1000), // 1 hour ago
-    distance: 3.2,
-  },
-  {
     id: "donation-2",
     title: "10 Bags of Rice",
     description: "Premium quality white rice, 10 bags of 10kg each. Ideal for daily meals, pulao, or biryani.",
