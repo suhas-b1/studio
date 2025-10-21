@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { useUser } from '@/firebase';
 
 function PageHeader({ role }: { role: UserRole }) {
   const title = role === 'donor' ? "My Donations History" : "Available Food Donations";
@@ -65,8 +66,12 @@ function Filters() {
 
 export default function DonationsPage({ searchParams }: { searchParams: { role?: UserRole }}) {
   const role = use(searchParams)?.role || 'ngo';
+  const { user } = useUser();
+  
+  // When the user is a donor, filter to show only their donations.
+  // When the user is an NGO, show all available donations.
   const donations = role === 'donor' 
-    ? mockDonations.filter(d => d.donorId === 'user-donor-1' || d.donorId === 'user-donor-2')
+    ? mockDonations.filter(d => d.donor.name === user?.displayName)
     : mockDonations.filter(d => d.status === 'available');
 
   return (
