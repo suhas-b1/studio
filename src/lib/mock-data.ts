@@ -55,8 +55,8 @@ export const mockDonations: Donation[] = [
     id: "donation-1",
     title: "10 Bags of Wheat",
     description: "High-quality whole wheat, 10 bags of 10kg each. Perfect for making chapatis and other bread.",
-    imageUrl: "https://images.unsplash.com/photo-1627687912389-989f21bd8c3a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageHint: "wheat bags",
+    imageUrl: "https://images.unsplash.com/photo-1503431128974-a7313a524495?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageHint: "jute wheat bags",
     quantity: "10 bags (100kg total)",
     type: "Pantry",
     pickupDeadline: new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
