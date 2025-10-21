@@ -14,7 +14,6 @@ import {
   LifeBuoy,
   User,
   MessageSquare,
-  Search,
 } from 'lucide-react';
 
 import {
@@ -28,13 +27,11 @@ const donorLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/donations/new', label: 'New Donation', icon: PlusCircle },
   { href: '/donations', label: 'My Donations', icon: Package },
-  { href: '/donations?role=ngo', label: 'Browse Donations', icon: Search },
   { href: '/impact', label: 'Impact', icon: BarChart2 },
 ];
 
 const ngoLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/donations', label: 'Browse', icon: Package },
   { href: '/matches', label: 'Smart Matches', icon: BrainCircuit },
   { href: '/impact', label: 'Claimed', icon: HeartHandshake },
 ];
