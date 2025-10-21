@@ -30,6 +30,7 @@ import {
 import type { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { buttonVariants } from '../ui/button';
 
 const commonLinks = [
     { href: '/settings', label: 'Settings', icon: Settings },
@@ -64,16 +65,12 @@ export function SidebarNav({ role }: { role: UserRole }) {
       </SidebarMenu>
 
        <Collapsible defaultOpen={isDonorSectionActive}>
-        <CollapsibleTrigger className="w-full">
-            <SidebarMenuButton
-                variant="default"
-                className="w-full justify-start"
-                 data-state={isDonorSectionActive ? 'open' : 'closed'}
-            >
-                <Utensils className="h-5 w-5" />
-                <span className="flex-1 text-left">Donor</span>
-                <ChevronDown className="h-4 w-4 transition-transform [&[data-state=open]]:-rotate-180" />
-            </SidebarMenuButton>
+        <CollapsibleTrigger asChild>
+          <button className={cn(buttonVariants({variant: 'default', size: 'default'}), "w-full justify-start px-2 h-8 text-sm group/menu-item relative data-[state=open]:bg-sidebar-accent")}>
+              <Utensils className="h-5 w-5 mr-2" />
+              <span className="flex-1 text-left">Donor</span>
+              <ChevronDown className="h-4 w-4 transition-transform [&[data-state=open]]:-rotate-180" />
+          </button>
         </CollapsibleTrigger>
         <CollapsibleContent>
             <SidebarMenu className="py-2 pl-6">
@@ -106,16 +103,12 @@ export function SidebarNav({ role }: { role: UserRole }) {
        </Collapsible>
 
         <Collapsible defaultOpen={isNgoSectionActive}>
-        <CollapsibleTrigger className="w-full">
-            <SidebarMenuButton
-                variant="default"
-                className="w-full justify-start"
-                data-state={isNgoSectionActive ? 'open' : 'closed'}
-            >
-                <Building className="h-5 w-5" />
+        <CollapsibleTrigger asChild>
+            <button className={cn(buttonVariants({variant: 'default', size: 'default'}), "w-full justify-start px-2 h-8 text-sm group/menu-item relative data-[state=open]:bg-sidebar-accent")}>
+                <Building className="h-5 w-5 mr-2" />
                 <span className="flex-1 text-left">Recipient</span>
                 <ChevronDown className="h-4 w-4 transition-transform [&[data-state=open]]:-rotate-180" />
-            </SidebarMenuButton>
+            </button>
         </CollapsibleTrigger>
         <CollapsibleContent>
             <SidebarMenu className="py-2 pl-6">
