@@ -1,3 +1,4 @@
+
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -11,6 +12,7 @@ import {
   BrainCircuit,
   Settings,
   LifeBuoy,
+  User,
 } from 'lucide-react';
 
 import {
@@ -35,6 +37,7 @@ const ngoLinks = [
 ];
 
 const commonLinks = [
+    { href: '/profile', label: 'Profile', icon: User },
     { href: '/settings', label: 'Settings', icon: Settings },
     { href: '/help', label: 'Help', icon: LifeBuoy },
 ];
