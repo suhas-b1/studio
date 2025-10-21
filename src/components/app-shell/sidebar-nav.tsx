@@ -112,14 +112,6 @@ export function SidebarNav({ role }: { role: UserRole }) {
         </CollapsibleTrigger>
         <CollapsibleContent>
             <SidebarMenu className="py-2 pl-6">
-                <SidebarMenuItem>
-                    <Link href={getHref('/donations')}>
-                        <SidebarMenuButton size="sm" isActive={pathname === '/donations' && role === 'ngo'} className="w-full justify-start">
-                            <Package />
-                            <span>Browse Donations</span>
-                        </SidebarMenuButton>
-                    </Link>
-                </SidebarMenuItem>
                  <SidebarMenuItem>
                     <Link href={getHref('/matches')}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/matches'} className="w-full justify-start">
