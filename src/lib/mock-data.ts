@@ -70,7 +70,7 @@ export const mockDonations: Donation[] = [
     id: "donation-2",
     title: "10 Bags of Rice",
     description: "Premium quality white rice, 10 bags of 10kg each. Ideal for daily meals, pulao, or biryani.",
-    imageUrl: "https://images.unsplash.com/photo-1586201375765-c1248ef61713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTE5MzAyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1723475158229-894679ca024e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxiYWdzJTIwb2YlMjByaWNlfGVufDB8fHx8MTc2MTA0NTgxNnww&ixlib=rb-4.1.0&q=80&w=1080",
     imageHint: "rice bags",
     quantity: "10 bags (100kg total)",
     type: "Pantry",
