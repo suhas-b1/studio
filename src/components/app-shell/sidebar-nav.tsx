@@ -16,6 +16,7 @@ import {
   ChevronDown,
   Building,
   Utensils,
+  PackageSearch,
 } from 'lucide-react';
 import {
   Collapsible,
@@ -45,8 +46,8 @@ export function SidebarNav({ role }: { role: UserRole }) {
     return `${href}?role=${role}`;
   }
 
-  const isDonorSectionActive = ['/donations', '/donations/new', '/impact'].includes(pathname) && role === 'donor';
-  const isNgoSectionActive = ['/donations', '/matches', '/impact'].includes(pathname) && role === 'ngo';
+  const isDonorSectionActive = ['/donations/new', '/donations', '/impact'].some(p => pathname.startsWith(p)) && role === 'donor';
+  const isNgoSectionActive = ['/matches', '/impact'].some(p => pathname.startsWith(p)) && role === 'ngo';
 
   return (
     <>
@@ -106,12 +107,20 @@ export function SidebarNav({ role }: { role: UserRole }) {
         <CollapsibleTrigger asChild>
             <button className={cn(buttonVariants({variant: 'default', size: 'default'}), "w-full justify-start px-2 h-8 text-sm group/menu-item relative data-[state=open]:bg-sidebar-accent")}>
                 <Building className="h-5 w-5 mr-2" />
-                <span className="flex-1 text-left">Recipient</span>
+                <span className="flex-1 text-left">Receiver</span>
                 <ChevronDown className="h-4 w-4 transition-transform [&[data-state=open]]:-rotate-180" />
             </button>
         </CollapsibleTrigger>
         <CollapsibleContent>
             <SidebarMenu className="py-2 pl-6">
+                <SidebarMenuItem>
+                    <Link href={getHref('/donations')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/donations' && role === 'ngo'} className="w-full justify-start">
+                            <PackageSearch />
+                            <span>Browse Donations</span>
+                        </SidebarMenuButton>
+                    </Link>
+                </SidebarMenuItem>
                  <SidebarMenuItem>
                     <Link href={getHref('/matches')}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/matches'} className="w-full justify-start">
