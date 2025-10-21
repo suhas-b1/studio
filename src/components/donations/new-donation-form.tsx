@@ -41,7 +41,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, Upload, Sparkles, Loader2, Calendar as CalendarIcon, Clock } from 'lucide-react';
+import { ChevronLeft, Upload, Sparkles, Loader2, Calendar as CalendarIcon } from 'lucide-react';
 import { suggestTitlesAction } from '@/app/actions';
 
 
