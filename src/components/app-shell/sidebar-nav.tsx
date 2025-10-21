@@ -14,6 +14,7 @@ import {
   LifeBuoy,
   User,
   MessageSquare,
+  Search,
 } from 'lucide-react';
 
 import {
@@ -27,6 +28,7 @@ const donorLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/donations/new', label: 'New Donation', icon: PlusCircle },
   { href: '/donations', label: 'My Donations', icon: Package },
+  { href: '/donations?role=ngo', label: 'Browse Donations', icon: Search },
   { href: '/impact', label: 'Impact', icon: BarChart2 },
 ];
 
@@ -49,14 +51,22 @@ export function SidebarNav({ role }: { role: UserRole }) {
   const pathname = usePathname();
   const links = role === 'donor' ? donorLinks : ngoLinks;
 
+  const getHref = (href: string) => {
+    if (href.includes('?')) {
+      return href;
+    }
+    return `${href}?role=${role}`;
+  }
+
+
   return (
     <>
       <SidebarMenu>
         {links.map((link) => (
           <SidebarMenuItem key={link.href}>
-            <Link href={`${link.href}?role=${role}`}>
+            <Link href={getHref(link.href)}>
               <SidebarMenuButton
-                isActive={pathname === link.href}
+                isActive={pathname === link.href.split('?')[0]}
                 tooltip={link.label}
               >
                 <link.icon />
