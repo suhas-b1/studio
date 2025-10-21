@@ -4,294 +4,181 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Wand, Loader2, Lightbulb, Image as ImageIcon } from 'lucide-react';
-import { suggestTitlesAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
+import { ChevronLeft } from 'lucide-react';
+
+const mealTypes = [
+    { name: 'Breakfast', imageUrl: 'https://picsum.photos/seed/breakfast/200/200', imageHint: 'breakfast food' },
+    { name: 'Lunch', imageUrl: 'https://picsum.photos/seed/lunch/200/200', imageHint: 'lunch food' },
+    { name: 'Dinner', imageUrl: 'https://picsum.photos/seed/dinner/200/200', imageHint: 'dinner food' },
+]
 
 const formSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters.'),
-  description: z.string().min(10, 'Description is too short.'),
-  quantity: z.string().min(1, 'Quantity is required.'),
-  type: z.enum(['Produce', 'Baked Goods', 'Canned Goods', 'Prepared Meal', 'Dairy', 'Pantry']),
-  pickupDeadline: z.date({ required_error: 'A pickup date is required.' }),
-  image: z.any().optional(),
+  diet: z.enum(['veg', 'non-veg']),
+  mealType: z.string().min(1, 'Please select a meal type.'),
+  quantity: z.number().min(1, 'Quantity must be at least 1.'),
+  preparedAt: z.number().min(0).max(12),
 });
 
-function TitleSuggestion({ onSelectTitle, clearSuggestions, suggestions, isLoading }: {
-  onSelectTitle: (title: string) => void,
-  clearSuggestions: () => void,
-  suggestions: string[],
-  isLoading: boolean,
-}) {
-  return (
-    <div>
-        {isLoading && <div className="text-sm text-muted-foreground flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" />Generating ideas...</div>}
-        {suggestions.length > 0 && (
-          <div className="mt-2 p-4 bg-secondary rounded-lg">
-            <div className="flex justify-between items-center mb-2">
-                <h4 className="font-semibold flex items-center"><Lightbulb className="w-4 h-4 mr-2 text-primary"/> AI Suggestions</h4>
-                <Button variant="ghost" size="sm" onClick={clearSuggestions}>Clear</Button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {suggestions.map((title, index) => (
-                <Button key={index} variant="outline" size="sm" onClick={() => onSelectTitle(title)}>
-                  {title}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
-    </div>
-  )
-}
-
 export function NewDonationForm() {
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedMeal, setSelectedMeal] = useState('');
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      quantity: '',
+      diet: 'veg',
+      mealType: '',
+      quantity: 10,
+      preparedAt: 3,
     },
   });
-
-  async function handleSuggestTitles() {
-    setIsLoading(true);
-    setSuggestions([]);
-    const description = form.getValues('description');
-    const imageFile = form.getValues('image');
-
-    if (!description && !imageFile) {
-        toast({
-            variant: "destructive",
-            title: "Input needed",
-            description: "Please provide a description or an image to get suggestions."
-        })
-        setIsLoading(false);
-        return;
-    }
-
-    let photoDataUri: string | undefined;
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.readAsDataURL(imageFile);
-        photoDataUri = await new Promise((resolve) => {
-            reader.onload = () => resolve(reader.result as string);
-        });
-    }
-
-    const result = await suggestTitlesAction({ description, photoDataUri });
-    
-    if (result.error) {
-        toast({
-            variant: "destructive",
-            title: "AI Suggestion Error",
-            description: result.error
-        });
-    } else if (result.suggestions) {
-        setSuggestions(result.suggestions);
-    }
-    setIsLoading(false);
-  }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     toast({
-        title: "Donation Listed! 🎉",
-        description: `Your donation of "${values.title}" is now available.`,
+        title: "Donation Posted! 🎉",
+        description: `Your ${values.mealType} donation is now listed.`,
     })
     form.reset();
-    setSuggestions([]);
+    setSelectedMeal('');
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-headline text-2xl">Create a New Donation</CardTitle>
-        <CardDescription>Fill out the details below to list your surplus food.</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div className='max-w-md mx-auto'>
+        <div className="flex items-center gap-4 mb-6">
+            <Button variant="ghost" size="icon" onClick={() => window.history.back()}>
+                <ChevronLeft />
+            </Button>
+            <h1 className="text-2xl font-bold font-headline">Donate Food</h1>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Food Description</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="e.g., 10 whole wheat sandwich loaves, baked this morning." {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Describe the item(s), including quantity and condition.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-               <FormField
-                  control={form.control}
-                  name="image"
-                  render={({ field: { onChange, value, ...rest } }) => (
-                    <FormItem>
-                      <FormLabel>Or/And Upload a Photo</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                           <ImageIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground"/>
-                           <Input type="file" accept="image/*" onChange={(e) => onChange(e.target.files ? e.target.files[0] : null)} className="pl-10" />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-            </div>
-            
-            <div className="p-4 border-dashed border-2 border-primary/50 rounded-lg bg-primary/5 space-y-4">
-                 <div className="flex items-center justify-between">
-                    <div>
-                        <h3 className="font-semibold">Need help with a title?</h3>
-                        <p className="text-sm text-muted-foreground">Use our AI to generate a title from your description or photo.</p>
-                    </div>
-                    <Button type="button" onClick={handleSuggestTitles} disabled={isLoading}>
-                      <Wand className="mr-2 h-4 w-4" />
-                      Suggest Titles
-                    </Button>
-                </div>
-                 <TitleSuggestion
-                    onSelectTitle={(title) => form.setValue('title', title)}
-                    clearSuggestions={() => setSuggestions([])}
-                    suggestions={suggestions}
-                    isLoading={isLoading}
-                />
-            </div>
-
             <FormField
               control={form.control}
-              name="title"
+              name="diet"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Listing Title</FormLabel>
+                <FormItem className="space-y-3">
+                  <FormLabel>Meal type</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Fresh Sourdough Bread" {...field} />
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex space-x-4"
+                    >
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="veg" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Veg</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="non-veg" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Non-veg</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            <div className="grid md:grid-cols-3 gap-4">
-              <FormField
-                control={form.control}
-                name="quantity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Quantity</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., 2 boxes, 15 loaves" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Food Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a food type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Pantry">Pantry</SelectItem>
-                        <SelectItem value="Baked Goods">Baked Goods</SelectItem>
-                        <SelectItem value="Produce">Produce</SelectItem>
-                        <SelectItem value="Canned Goods">Canned Goods</SelectItem>
-                        <SelectItem value="Dairy">Dairy</SelectItem>
-                        <SelectItem value="Prepared Meal">Prepared Meal</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="pickupDeadline"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Pickup Deadline</FormLabel>
-                     <Popover>
-                        <PopoverTrigger asChild>
-                        <FormControl>
-                            <Button
-                            variant={"outline"}
-                            className={cn(
-                                "pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                            )}
-                            >
-                            {field.value ? (
-                                format(field.value, "PPP")
-                            ) : (
-                                <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                        </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                            date < new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                        />
-                        </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
             
-            <Button type="submit" size="lg" className="w-full md:w-auto">List Donation</Button>
+            <FormField
+              control={form.control}
+              name="mealType"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                    <div className="flex justify-around text-center">
+                        {mealTypes.map(meal => (
+                            <div key={meal.name} onClick={() => {
+                                field.onChange(meal.name);
+                                setSelectedMeal(meal.name);
+                            }}>
+                                <Image 
+                                    src={meal.imageUrl}
+                                    alt={meal.name}
+                                    width={80}
+                                    height={80}
+                                    data-ai-hint={meal.imageHint}
+                                    className={cn('rounded-full object-cover aspect-square transition-all', selectedMeal === meal.name ? 'ring-4 ring-primary' : 'ring-2 ring-transparent')}
+                                />
+                                <FormLabel className={cn("font-normal mt-2 block", selectedMeal === meal.name && "text-primary")}>{meal.name}</FormLabel>
+                            </div>
+                        ))}
+                    </div>
+                  <FormMessage className="text-center" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="quantity"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Quantity (person)</FormLabel>
+                  <div className="flex items-center gap-4">
+                     <span className="text-sm font-medium">{field.value}</span>
+                    <Slider
+                      min={0}
+                      max={60}
+                      step={1}
+                      value={[field.value]}
+                      onValueChange={(value) => field.onChange(value[0])}
+                    />
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="preparedAt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>When was the meal prepared (Hrs)</FormLabel>
+                   <div className="flex items-center gap-4">
+                     <span className="text-sm font-medium">{field.value}</span>
+                        <Slider
+                        min={0}
+                        max={12}
+                        step={1}
+                        value={[field.value]}
+                        onValueChange={(value) => field.onChange(value[0])}
+                        />
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <Button type="submit" size="lg" className="w-full">Post</Button>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+    </div>
   );
 }
