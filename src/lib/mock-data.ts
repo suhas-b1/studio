@@ -2,7 +2,7 @@
 import type { User, Donation, AppNotification, Ngo, UserRole } from "@/lib/types";
 import { Bell, CheckCircle, Package, Utensils, HeartHandshake } from "lucide-react";
 
-const mockUsers: User[] = [
+export const mockUsers: User[] = [
   {
     id: "user-donor-1",
     name: "Renuka's Kitchen",
