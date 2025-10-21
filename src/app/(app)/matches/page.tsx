@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from "react";
@@ -9,19 +10,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { DonationCard } from "@/components/donations/donation-card";
 import type { Donation } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
+import { useDonations } from "@/context/donations-context";
 
 export default function MatchesPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [matches, setMatches] = useState<Donation[]>([]);
     const [error, setError] = useState<string | null>(null);
     const { toast } = useToast();
+    const { donations } = useDonations();
 
     const handleGenerate = async () => {
         setIsLoading(true);
         setError(null);
         setMatches([]);
 
-        const result = await findRelevantDonationsAction();
+        const availableDonations = donations.filter(d => d.status === 'available');
+        const result = await findRelevantDonationsAction(availableDonations);
 
         if (result.error) {
             setError(result.error);
@@ -31,7 +35,6 @@ export default function MatchesPage() {
                 description: result.error,
             });
         } else if (result.matches) {
-            // The action now returns Donation objects
             setMatches(result.matches);
         }
         setIsLoading(false);

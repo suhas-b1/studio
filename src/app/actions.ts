@@ -1,3 +1,4 @@
+
 // @/app/actions.ts
 'use server';
 
@@ -12,7 +13,6 @@ import {
   findRelevantDonations
 } from '@/ai/flows/find-relevant-donations';
 import type { Donation, Ngo } from '@/lib/types';
-import { mockDonations } from '@/lib/mock-data';
 
 export async function suggestTitlesAction(
   input: SuggestFoodListingTitlesInput
@@ -52,7 +52,7 @@ export async function generateMatchesAction(): Promise<{ matches?: Ngo[]; error?
 }
 
 
-export async function findRelevantDonationsAction(): Promise<{ matches?: Donation[]; error?: string; }> {
+export async function findRelevantDonationsAction(availableDonations: Donation[]): Promise<{ matches?: Donation[]; error?: string; }> {
     try {
         const ngoProfile = {
             name: "Community Kitchen",
@@ -60,10 +60,7 @@ export async function findRelevantDonationsAction(): Promise<{ matches?: Donatio
             needs: "We run a soup kitchen serving 200 hot meals daily and also provide family meal boxes. We have a high need for fresh produce, protein, and prepared meals. We have refrigeration and can pick up larger donations."
         };
         
-        // In a real app, you'd filter this list based on location, status, etc. before sending to AI.
-        // For this demo, we'll send the whole mock list.
-        const availableDonations = mockDonations.filter(d => d.status === 'available');
-
+        // The action now receives the current list of available donations from the client state.
         const result = await findRelevantDonations({
             ngoProfile: ngoProfile,
             availableDonations: availableDonations
@@ -71,7 +68,7 @@ export async function findRelevantDonationsAction(): Promise<{ matches?: Donatio
         
         // The AI returns IDs, we need to map them back to the full donation objects
         const matchedDonations = result.matchedDonationIds
-            .map(id => mockDonations.find(d => d.id === id))
+            .map(id => availableDonations.find(d => d.id === id))
             .filter((d): d is Donation => !!d);
 
         return { matches: matchedDonations };

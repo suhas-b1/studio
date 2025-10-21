@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
@@ -43,6 +44,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, Upload, Sparkles, Loader2, Calendar as CalendarIcon } from 'lucide-react';
 import { suggestTitlesAction } from '@/app/actions';
+import { useDonations } from '@/context/donations-context';
+import { useUser } from '@/firebase';
+import { mockUsers } from '@/lib/mock-data';
 
 
 const newDonationSchema = z.object({
@@ -55,6 +59,7 @@ const newDonationSchema = z.object({
   }),
   location: z.string().min(5, 'Please provide a pickup location.'),
   image: z.any().optional(),
+  imageHint: z.string().optional(),
 });
 
 export function NewDonationForm() {
@@ -62,6 +67,8 @@ export function NewDonationForm() {
     const [isSuggesting, setIsSuggesting] = useState(false);
     const { toast } = useToast();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { addDonation } = useDonations();
+    const { user } = useUser();
 
     const form = useForm<z.infer<typeof newDonationSchema>>({
         resolver: zodResolver(newDonationSchema),
@@ -124,7 +131,25 @@ export function NewDonationForm() {
     };
 
     function onSubmit(values: z.infer<typeof newDonationSchema>) {
-        console.log(values);
+        if (!user) {
+            toast({ variant: "destructive", title: "You must be logged in to donate."});
+            return;
+        }
+
+        const newDonation = {
+            id: `donation-${new Date().getTime()}`,
+            ...values,
+            imageUrl: imagePreview || 'https://placehold.co/600x400',
+            imageHint: values.imageHint || 'food',
+            donorId: user.uid,
+            donor: mockUsers.find(u => u.id === user.uid) || mockUsers.find(u => u.role === 'donor')!,
+            status: 'available' as const,
+            createdAt: new Date(),
+            distance: Math.random() * 10,
+        };
+
+        addDonation(newDonation);
+        
         toast({
             title: "Donation Listed! 🎉",
             description: "Your food donation is now visible to nearby NGOs.",

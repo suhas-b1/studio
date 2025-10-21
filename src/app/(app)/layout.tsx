@@ -1,3 +1,4 @@
+
 // src/app/(app)/layout.tsx
 'use client';
 import type { ReactNode } from 'react';
@@ -19,6 +20,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { UserRole } from '@/lib/types';
+import { DonationsProvider } from '@/context/donations-context';
 
 
 const AuthLayout = ({ children, role }: { children: ReactNode, role: UserRole }) => {
@@ -105,5 +107,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   }
 
 
-  return <AuthLayout role={role}>{children}</AuthLayout>;
+  return (
+    <DonationsProvider>
+      <AuthLayout role={role}>{children}</AuthLayout>
+    </DonationsProvider>
+  );
 }

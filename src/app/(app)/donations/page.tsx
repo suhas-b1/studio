@@ -2,7 +2,6 @@
 
 'use client';
 import { use } from 'react';
-import { mockDonations } from "@/lib/mock-data";
 import { DonationCard } from "@/components/donations/donation-card";
 import { UserRole } from "@/lib/types";
 import { Input } from "@/components/ui/input";
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
 import { useUser } from '@/firebase';
+import { useDonations } from '@/context/donations-context';
 
 function PageHeader({ role }: { role: UserRole }) {
   const title = role === 'donor' ? "My Donations History" : "Available Food Donations";
@@ -68,19 +68,20 @@ function Filters() {
 export default function DonationsPage({ searchParams }: { searchParams: { role?: UserRole }}) {
   const role = use(searchParams)?.role || 'ngo';
   const { user } = useUser();
+  const { donations } = useDonations();
   
   // When the user is a donor, filter to show only their donations.
   // When the user is an NGO, show all available donations.
-  const donations = role === 'donor' 
-    ? mockDonations.filter(d => d.donorId === user?.uid)
-    : mockDonations.filter(d => d.status === 'available');
+  const displayedDonations = role === 'donor' 
+    ? donations.filter(d => d.donorId === user?.uid)
+    : donations.filter(d => d.status === 'available');
 
   return (
     <div className="container mx-auto py-8 px-4 md:px-8">
         <PageHeader role={role} />
         <Filters />
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {donations.map(donation => (
+            {displayedDonations.map(donation => (
                 <DonationCard key={donation.id} donation={donation} role={role} />
             ))}
         </div>
