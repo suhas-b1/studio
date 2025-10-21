@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HandHeart, UtensilsCrossed, Building } from 'lucide-react';
@@ -5,9 +6,11 @@ import { HandHeart, UtensilsCrossed, Building } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useUser } from '@/firebase';
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'community-gathering');
+  const { user, isUserLoading } = useUser();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -17,12 +20,21 @@ export default function Home() {
           <span className="text-xl font-bold tracking-tighter text-foreground">Nourish Connect</span>
         </Link>
         <nav className="flex items-center gap-4">
-          <Button variant="ghost" asChild>
-            <Link href="/dashboard?role=donor">Log In</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/dashboard?role=ngo">Get Started</Link>
-          </Button>
+          {!isUserLoading && !user && (
+            <>
+              <Button variant="ghost" asChild>
+                <Link href="/login">Log In</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/signup">Get Started</Link>
+              </Button>
+            </>
+          )}
+           {!isUserLoading && user && (
+              <Button asChild>
+                <Link href="/dashboard">Go to Dashboard</Link>
+              </Button>
+          )}
         </nav>
       </header>
       <main className="flex-1">
@@ -48,7 +60,7 @@ export default function Home() {
               </p>
               <div className="mt-6">
                 <Button size="lg" asChild>
-                  <Link href="/dashboard?role=donor">Donate Food Now</Link>
+                  <Link href="/signup?role=donor">Donate Food Now</Link>
                 </Button>
               </div>
             </div>
@@ -66,7 +78,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:max-w-none lg:grid-cols-2 mt-12">
-              <Link href="/dashboard?role=donor">
+              <Link href="/signup?role=donor">
                 <Card className="flex h-full flex-col justify-between transition-all hover:scale-105 hover:shadow-xl">
                   <CardHeader>
                     <div className="flex items-center gap-4">
@@ -83,7 +95,7 @@ export default function Home() {
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="/dashboard?role=ngo">
+              <Link href="/signup?role=ngo">
                 <Card className="flex h-full flex-col justify-between transition-all hover:scale-105 hover:shadow-xl">
                    <CardHeader>
                     <div className="flex items-center gap-4">

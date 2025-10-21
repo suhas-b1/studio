@@ -1,7 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { CreditCard, LogOut, PlusCircle, Settings, User as UserIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { LogOut, PlusCircle, Settings, User as UserIcon } from 'lucide-react';
+import { useAuth, useUser } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -14,26 +17,43 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { User, UserRole } from '@/lib/types';
-import { getUser } from '@/lib/mock-data';
+import type { UserRole } from '@/lib/types';
+import { useToast } from '@/hooks/use-toast';
 
 export function UserNav({ role = 'donor' }: { role: UserRole }) {
-  const user: User = getUser(role);
+  const { user } = useUser();
+  const auth = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast({ title: "You've been logged out." });
+      router.push('/');
+    } catch (error) {
+      toast({ variant: 'destructive', title: 'Failed to log out.' });
+    }
+  };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={user.avatarUrl} alt={user.name} />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            <AvatarImage src={user.photoURL || ''} alt={user.displayName || ''} />
+            <AvatarFallback>{user.displayName?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.organizationName}</p>
+            <p className="text-sm font-medium leading-none">{user.displayName}</p>
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
             </p>
@@ -54,18 +74,16 @@ export function UserNav({ role = 'donor' }: { role: UserRole }) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-             <Link href={`#`}>
+             <Link href={`/settings?role=${role}`}>
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/">
+        <DropdownMenuItem onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
-          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

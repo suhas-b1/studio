@@ -1,3 +1,5 @@
+// src/app/(app)/layout.tsx
+'use client';
 import type { ReactNode } from 'react';
 import { Suspense } from 'react';
 import {
@@ -12,18 +14,26 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Logo } from '@/components/common/logo';
 import { AppHeader } from '@/components/app-shell/app-header';
 import { SidebarNav } from '@/components/app-shell/sidebar-nav';
-import { getUser } from '@/lib/mock-data';
+import { useUser } from '@/firebase';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 import type { UserRole } from '@/lib/types';
 
-export default function AppLayout({
-  children,
-  params
-}: {
-  children: ReactNode;
-  params: { role?: UserRole };
-}) {
-  const role: UserRole = params?.role || 'donor'; // layouts don't receive searchParams. Defaulting role.
-  const user = getUser(role);
+
+const AuthLayout = ({ children, role }: { children: ReactNode, role: UserRole }) => {
+  const { user, isUserLoading } = useUser();
+
+  if (isUserLoading) {
+    return (
+        <div className="flex h-screen items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+                <Logo />
+                <Skeleton className="h-4 w-48" />
+            </div>
+        </div>
+    )
+  }
 
   return (
     <SidebarProvider>
@@ -37,12 +47,12 @@ export default function AppLayout({
         <SidebarFooter>
           <div className="flex items-center gap-3">
             <Avatar className="h-9 w-9">
-              <AvatarImage src={user.avatarUrl} alt={user.name} />
-              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+              <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || ''} />
+              <AvatarFallback>{user?.displayName?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col text-sm">
-                <span className="font-semibold">{user.organizationName}</span>
-                <span className="text-muted-foreground">{user.email}</span>
+                <span className="font-semibold">{user?.displayName}</span>
+                <span className="text-muted-foreground">{user?.email}</span>
             </div>
           </div>
         </SidebarFooter>
@@ -57,4 +67,43 @@ export default function AppLayout({
       </SidebarInset>
     </SidebarProvider>
   );
+}
+
+
+export default function AppLayout({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const role = (searchParams.get('role') as UserRole) || 'donor';
+  const { user, isUserLoading, userError } = useUser();
+
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/login');
+    }
+  }, [isUserLoading, user, router]);
+
+  if (isUserLoading || !user) {
+     return (
+        <div className="flex h-screen items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+                <Logo />
+                <p>Loading user...</p>
+            </div>
+        </div>
+    )
+  }
+  
+  if (userError) {
+       return (
+        <div className="flex h-screen items-center justify-center">
+            <div className="flex flex-col items-center gap-4 text-destructive">
+                <Logo />
+                <p>An error occurred loading your session. Please try logging in again.</p>
+            </div>
+        </div>
+    )
+  }
+
+
+  return <AuthLayout role={role}>{children}</AuthLayout>;
 }
