@@ -22,35 +22,32 @@ export default function ProfilePage() {
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && user) {
+      // Create a URL for the local file to use for the preview.
       const reader = new FileReader();
       reader.onloadend = () => {
         setPhotoPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
 
-      // In a real app, you'd upload this to Firebase Storage and get a URL
-      // For now, we'll simulate this by using the Data URL directly for the preview
-      // and then updating the user's profile.
-      try {
-        const photoURL = await new Promise<string>((resolve) => {
-            const localReader = new FileReader();
-            localReader.onloadend = () => resolve(localReader.result as string);
-            localReader.readAsDataURL(file);
-        });
+      // In a real app, you'd upload this file to Firebase Storage to get a persistent URL.
+      // For now, we just update the local preview and will add the upload logic later.
+      // The `updateProfile` call is removed to prevent the "URL too long" error.
+      toast({
+        title: "Photo Preview Updated",
+        description: "Your new photo is shown in the preview. It will be saved permanently once storage is enabled.",
+      });
 
-        await updateProfile(user, { photoURL });
-        toast({
-            title: "Profile Photo Updated!",
-            description: "Your new photo has been saved."
-        });
-      } catch (error) {
-        console.error("Error updating profile photo:", error);
-        toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Failed to update your profile photo."
-        });
-      }
+      // Example of what it would look like with Firebase Storage:
+      // try {
+      //   const storageRef = ref(storage, `avatars/${user.uid}`);
+      //   await uploadBytes(storageRef, file);
+      //   const photoURL = await getDownloadURL(storageRef);
+      //   await updateProfile(user, { photoURL });
+      //   toast({ title: "Profile Photo Updated!" });
+      // } catch (error) {
+      //   console.error("Error updating profile photo:", error);
+      //   toast({ variant: "destructive", title: "Upload Failed" });
+      // }
     }
   };
 
