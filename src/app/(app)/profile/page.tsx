@@ -6,25 +6,51 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useUser } from '@/firebase';
+import { useAuth, useUser } from '@/firebase';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState, useRef } from 'react';
+import { updateProfile } from 'firebase/auth';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ProfilePage() {
   const { user, isUserLoading } = useUser();
+  const auth = useAuth();
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (file && user) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPhotoPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-      // Here you would also handle uploading the file to Firebase Storage
-      // and updating the user's photoURL in their Firebase profile.
+
+      // In a real app, you'd upload this to Firebase Storage and get a URL
+      // For now, we'll simulate this by using the Data URL directly for the preview
+      // and then updating the user's profile.
+      try {
+        const photoURL = await new Promise<string>((resolve) => {
+            const localReader = new FileReader();
+            localReader.onloadend = () => resolve(localReader.result as string);
+            localReader.readAsDataURL(file);
+        });
+
+        await updateProfile(user, { photoURL });
+        toast({
+            title: "Profile Photo Updated!",
+            description: "Your new photo has been saved."
+        });
+      } catch (error) {
+        console.error("Error updating profile photo:", error);
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to update your profile photo."
+        });
+      }
     }
   };
 

@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -19,9 +20,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { UserRole } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
+import { Skeleton } from '../ui/skeleton';
 
 export function UserNav({ role = 'donor' }: { role: UserRole }) {
-  const { user } = useUser();
+  const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
@@ -35,6 +37,10 @@ export function UserNav({ role = 'donor' }: { role: UserRole }) {
       toast({ variant: 'destructive', title: 'Failed to log out.' });
     }
   };
+
+  if (isUserLoading) {
+    return <Skeleton className="h-10 w-10 rounded-full" />;
+  }
 
   if (!user) {
     return null;
