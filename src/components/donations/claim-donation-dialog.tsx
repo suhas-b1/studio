@@ -27,6 +27,8 @@ import { useToast } from '@/hooks/use-toast';
 import type { Donation } from '@/lib/types';
 import { Building, Phone, MapPin, Truck, Warehouse } from 'lucide-react';
 import { Separator } from '../ui/separator';
+import { useDonations } from '@/context/donations-context';
+import { useUser } from '@/firebase';
 
 const claimSchema = z.object({
   ngoName: z.string().min(2, 'Organization name is required.'),
@@ -49,6 +51,9 @@ export function ClaimDonationDialog({
   donation,
 }: ClaimDonationDialogProps) {
   const { toast } = useToast();
+  const { claimDonation } = useDonations();
+  const { user } = useUser();
+
   const form = useForm<z.infer<typeof claimSchema>>({
     resolver: zodResolver(claimSchema),
     defaultValues: {
@@ -59,7 +64,17 @@ export function ClaimDonationDialog({
   });
 
   function onSubmit(values: z.infer<typeof claimSchema>) {
+    if (!user) {
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "You must be logged in to claim a donation."
+        })
+        return;
+    }
+
     console.log('Claim submitted:', { ...values, donationId: donation.id });
+    claimDonation(donation.id, user.uid);
     toast({
       title: 'Claim Submitted! 🎉',
       description: `The donor has been notified. Please coordinate for pickup.`,
@@ -185,7 +200,7 @@ export function ClaimDonationDialog({
               >
                 Cancel
               </Button>
-              <Button type="submit" className="bg-accent hover:bg-accent/90">Confirm Claim</Button>
+              <Button type="submit">Confirm Claim</Button>
             </DialogFooter>
           </form>
         </Form>

@@ -8,6 +8,7 @@ import { mockDonations } from '@/lib/mock-data';
 interface DonationsContextType {
   donations: Donation[];
   addDonation: (donation: Donation) => void;
+  claimDonation: (donationId: string, ngoId: string) => void;
 }
 
 const DonationsContext = createContext<DonationsContextType | undefined>(undefined);
@@ -19,8 +20,16 @@ export const DonationsProvider = ({ children }: { children: ReactNode }) => {
     setDonations((prevDonations) => [donation, ...prevDonations]);
   };
 
+  const claimDonation = (donationId: string, ngoId: string) => {
+    setDonations((prevDonations) =>
+      prevDonations.map((d) =>
+        d.id === donationId ? { ...d, status: 'claimed', claimedByNgoId: ngoId } : d
+      )
+    );
+  };
+
   return (
-    <DonationsContext.Provider value={{ donations, addDonation }}>
+    <DonationsContext.Provider value={{ donations, addDonation, claimDonation }}>
       {children}
     </DonationsContext.Provider>
   );

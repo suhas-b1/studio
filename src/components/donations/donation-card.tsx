@@ -4,7 +4,7 @@ import Image from "next/image";
 import { formatDistanceToNow } from 'date-fns';
 import { MapPin, Calendar, Clock, Award, XCircle } from "lucide-react";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
   const [isClaiming, setIsClaiming] = useState(false);
 
   const isExpired = new Date() > donation.pickupDeadline;
-  const status = isExpired && donation.status !== 'picked-up' ? 'expired' : donation.status;
+  const currentStatus = isExpired && donation.status === 'available' ? 'expired' : donation.status;
 
 
   return (
@@ -38,8 +38,8 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
             className="object-cover"
             data-ai-hint={donation.imageHint}
           />
-           <Badge variant="outline" className={`absolute top-2 right-2 backdrop-blur-sm ${statusColors[status]}`}>
-            {status}
+           <Badge variant="outline" className={`absolute top-2 right-2 backdrop-blur-sm ${statusColors[currentStatus]}`}>
+            {currentStatus}
           </Badge>
         </div>
       </CardHeader>
@@ -51,7 +51,6 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
           <Badge variant="secondary">{donation.type}</Badge>
         </div>
         <CardTitle className="text-lg font-headline mb-2">{donation.title}</CardTitle>
-        <CardDescription className="text-sm line-clamp-2">{donation.description}</CardDescription>
         
         <div className="mt-4 flex items-center gap-3">
           <Avatar className="h-8 w-8">
@@ -75,7 +74,7 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
                 <Calendar className="h-4 w-4" />
                 <span>Listed {formatDistanceToNow(donation.createdAt, { addSuffix: true })}</span>
             </div>
-             {status === 'expired' ? (
+             {currentStatus === 'expired' ? (
                 <div className="flex items-center gap-2 text-destructive">
                     <XCircle className="h-4 w-4" />
                     <span>Expired</span>
@@ -87,8 +86,8 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
                 </div>
             )}
         </div>
-        {role === 'ngo' && status === 'available' && (
-          <Button className="w-full bg-accent hover:bg-accent/90" onClick={() => setIsClaiming(true)}>
+        {role === 'ngo' && currentStatus === 'available' && (
+          <Button className="w-full" onClick={() => setIsClaiming(true)}>
             Claim Donation
           </Button>
         )}
@@ -103,4 +102,3 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
     </>
   );
 }
-

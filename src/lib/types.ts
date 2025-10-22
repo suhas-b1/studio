@@ -24,7 +24,7 @@ export type Donation = {
   donorId: string;
   donor: User;
   status: "available" | "claimed" | "picked-up" | "expired";
-  claimedByNgoId?: string;
+  claimedByNgoId?: string | null;
   createdAt: Date;
   distance: number;
 };
