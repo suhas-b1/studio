@@ -47,7 +47,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
   }
 
   const isDonorSectionActive = ['/donations/new', '/donations', '/impact'].some(p => pathname.startsWith(p)) && role === 'donor';
-  const isNgoSectionActive = ['/matches', '/impact'].some(p => pathname.startsWith(p)) && role === 'ngo';
+  const isNgoSectionActive = ['/matches', '/claims'].some(p => pathname.startsWith(p)) && role === 'ngo';
 
   return (
     <>
@@ -122,8 +122,8 @@ export function SidebarNav({ role }: { role: UserRole }) {
                     </Link>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <Link href={getHref('/impact')}>
-                        <SidebarMenuButton size="sm" isActive={pathname === '/impact' && role === 'ngo'} className="w-full justify-start">
+                    <Link href={getHref('/claims')}>
+                        <SidebarMenuButton size="sm" isActive={pathname === '/claims' && role === 'ngo'} className="w-full justify-start">
                             <HeartHandshake />
                             <span>My Claims</span>
                         </SidebarMenuButton>
