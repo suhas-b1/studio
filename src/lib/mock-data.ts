@@ -70,8 +70,8 @@ export const mockDonations: Donation[] = [
     id: "donation-2",
     title: "100 Fresh Chapatis",
     description: "Soft, whole wheat chapatis ready to be paired with any curry or vegetable dish. Made fresh this evening.",
-    imageUrl: "https://plus.unsplash.com/premium_photo-1695299440026-b8237b60aa68?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageHint: "chapati bread",
+    imageUrl: "https://images.unsplash.com/photo-1600935926387-12d9b03066f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGFwYXRpfGVufDB8fHx8MTc2MTExNjE5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageHint: "chapati pulao",
     quantity: "Approx. 100 pieces",
     type: "Baked Goods",
     pickupDeadline: new Date(new Date().getTime() + 4 * 60 * 60 * 1000), // 4 hours from now
