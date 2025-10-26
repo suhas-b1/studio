@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -66,14 +67,10 @@ export default function LoginPage() {
       if (error.code) {
         switch (error.code) {
           case 'auth/invalid-credential':
+          case 'auth/user-not-found':
+          case 'auth/wrong-password':
             description = 'The email or password you entered is incorrect. Please double-check and try again.';
             break;
-          case 'auth/user-not-found':
-            description = 'No account found with this email address. You can sign up for a new account.';
-            break;
-          case 'auth/wrong-password':
-             description = 'The password you entered is incorrect. Please try again.';
-             break;
           default:
             description = error.message;
         }

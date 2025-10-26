@@ -17,24 +17,10 @@
 // 8. Copy the values from that object and paste them into the corresponding fields below.
 
 export const firebaseConfig = {
-  // Replace "YOUR_API_KEY_HERE" with the apiKey value from your Firebase project.
-  apiKey: "YOUR_API_KEY_HERE",
-
-  // Replace "YOUR_PROJECT_ID.firebaseapp.com" with the authDomain value.
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-
-  // Replace "YOUR_PROJECT_ID_HERE" with the projectId value.
-  projectId: "YOUR_PROJECT_ID_HERE",
-
-  // Replace "YOUR_PROJECT_ID.appspot.com" with the storageBucket value.
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-
-  // Replace "YOUR_MESSAGING_SENDER_ID_HERE" with the messagingSenderId value.
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID_HERE",
-
-  // Replace "YOUR_APP_ID_HERE" with the appId value.
-  appId: "YOUR_APP_ID_HERE",
-
-  // This is optional and can sometimes be left blank, but it's best to include it.
-  measurementId: "YOUR_MEASUREMENT_ID_HERE"
+  apiKey: "AIzaSyBhNLyJip51iUntp5lsKOT-A7yqQnF35Vk",
+  authDomain: "studio-8611397362-1271e.firebaseapp.com",
+  projectId: "studio-8611397362-1271e",
+  storageBucket: "studio-8611397362-1271e.firebasestorage.app",
+  messagingSenderId: "67841268501",
+  appId: "1:67841268501:web:aa63d9fc18fc227287671c"
 };
