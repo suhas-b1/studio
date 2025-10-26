@@ -82,6 +82,36 @@ export const mockDonations: Donation[] = [
     distance: 4.8,
   },
   {
+    id: "donation-6",
+    title: "Bulk Rice and Pasta",
+    description: "Unopened 20kg bags of basmati rice and 50 boxes of whole-wheat spaghetti. Perfect for stocking up a pantry.",
+    imageUrl: "https://plus.unsplash.com/premium_photo-1698053702146-2d33454a2656?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageHint: "rice pasta",
+    quantity: "1 lot",
+    type: "Pantry",
+    pickupDeadline: new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+    donorId: "user-donor-1",
+    donor: mockUsers.find(u => u.id === 'user-donor-1')!,
+    status: "available",
+    createdAt: new Date(new Date().getTime() - 1 * 60 * 60 * 1000), // 1 hour ago
+    distance: 8.1,
+  },
+  {
+    id: "donation-7",
+    title: "20 Liters of UHT Milk",
+    description: "Cartons of long-life UHT milk with an expiry date of 6 months from now. Ideal for families and children's programs.",
+    imageUrl: "https://images.unsplash.com/photo-1627515431631-4652ba8512a2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageHint: "milk cartons",
+    quantity: "20 cartons",
+    type: "Dairy",
+    pickupDeadline: new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
+    donorId: "user-donor-2",
+    donor: mockUsers.find(u => u.id === 'user-donor-2')!,
+    status: "available",
+    createdAt: new Date(new Date().getTime() - 3 * 60 * 60 * 1000), // 3 hours ago
+    distance: 3.0,
+  },
+  {
     id: "donation-3",
     title: "Leftover Wedding Feast (Veg)",
     description: "Generous amount of vegetable pulao, paneer curry, and dal from a wedding event. Can serve at least 70-80 people.",
@@ -96,6 +126,21 @@ export const mockDonations: Donation[] = [
     claimedByNgoId: "user-ngo-1",
     createdAt: new Date(new Date().getTime() - 2 * 60 * 60 * 1000), // 2 hours ago
     distance: 1.2,
+  },
+  {
+    id: "donation-8",
+    title: "Canned Goods Assortment",
+    description: "Mixed case of canned goods including tuna, beans, and corn. All cans are in good condition with long expiry dates.",
+    imageUrl: "https://images.unsplash.com/photo-1625246328563-6e4804a8b753?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageHint: "canned food",
+    quantity: "1 large case",
+    type: "Canned Goods",
+    pickupDeadline: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+    donorId: "user-donor-3",
+    donor: mockUsers.find(u => u.id === 'user-donor-3')!,
+    status: "available",
+    createdAt: new Date(new Date().getTime() - 8 * 60 * 60 * 1000), // 8 hours ago
+    distance: 5.5,
   },
   {
     id: "donation-4",
