@@ -61,9 +61,19 @@ export async function findRelevantDonationsAction(availableDonations: Donation[]
         };
         
         // The action now receives the current list of available donations from the client state.
+        // We need to transform the data to match the schema expected by the AI prompt.
+        const donationsForAI = availableDonations.map(d => ({
+            id: d.id,
+            title: d.title,
+            description: d.description,
+            type: d.type,
+            quantity: d.quantity.toString(), // Ensure quantity is a string
+            distance: d.distance, // Keep distance as a number for the AI prompt
+        }));
+
         const result = await findRelevantDonations({
             ngoProfile: ngoProfile,
-            availableDonations: availableDonations
+            availableDonations: donationsForAI
         });
         
         // The AI returns IDs, we need to map them back to the full donation objects

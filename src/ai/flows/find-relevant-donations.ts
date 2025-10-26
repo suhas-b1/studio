@@ -22,7 +22,7 @@ const DonationSchema = z.object({
     title: z.string(),
     description: z.string(),
     type: z.string(),
-    quantity: z.string(),
+    quantity: z.string(), // Quantity as a string
     distance: z.number().describe("Distance in kilometers from the NGO."),
 });
 
