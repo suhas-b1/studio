@@ -173,6 +173,22 @@ export const mockDonations: Donation[] = [
     createdAt: new Date(new Date().getTime() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
     distance: 6.5,
   },
+  {
+    id: "donation-9",
+    title: "Catering Leftovers - Pasta",
+    description: "Trays of vegetarian pasta from a corporate event. Good for about 30-40 people.",
+    imageUrl: "https://images.unsplash.com/photo-1579684385127-6ab18a5d7814?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageHint: "pasta catering",
+    quantity: "4 large trays",
+    type: "Prepared Meal",
+    pickupDeadline: new Date(new Date().getTime() - 2 * 60 * 60 * 1000), // Expired 2 hours ago
+    donorId: "user-donor-1",
+    donor: mockUsers.find(u => u.id === 'user-donor-1')!,
+    status: "claimed",
+    claimedByNgoId: "user-ngo-2",
+    createdAt: new Date(new Date().getTime() - 26 * 60 * 60 * 1000), // Created 26 hours ago
+    distance: 7.2,
+  },
 ];
 
 export const mockNotifications: AppNotification[] = [
