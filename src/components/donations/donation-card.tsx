@@ -2,7 +2,7 @@
 'use client';
 import Image from "next/image";
 import { formatDistanceToNow } from 'date-fns';
-import { MapPin, Calendar, Clock, Award, XCircle, Info } from "lucide-react";
+import { MapPin, Calendar, Clock, Award, XCircle, Info, HeartHandshake } from "lucide-react";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -95,7 +95,8 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
             </Button>
             {role === 'ngo' && currentStatus === 'available' && (
               <Button className="w-full" onClick={() => setIsClaiming(true)}>
-                Claim Donation
+                <HeartHandshake className="mr-2 h-4 w-4" />
+                Claim
               </Button>
             )}
         </div>
