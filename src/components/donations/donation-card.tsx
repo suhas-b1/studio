@@ -2,7 +2,7 @@
 'use client';
 import Image from "next/image";
 import { formatDistanceToNow } from 'date-fns';
-import { MapPin, Calendar, Clock, Award, XCircle } from "lucide-react";
+import { MapPin, Calendar, Clock, Award, XCircle, Info } from "lucide-react";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import type { Donation, UserRole } from "@/lib/types";
 import { ClaimDonationDialog } from "./claim-donation-dialog";
 import { useState } from "react";
+import { DonationDetailsDialog } from "./donation-details-dialog";
 
 const statusColors = {
   available: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 border-green-300 dark:border-green-700',
@@ -21,6 +22,7 @@ const statusColors = {
 
 export function DonationCard({ donation, role }: { donation: Donation; role: UserRole }) {
   const [isClaiming, setIsClaiming] = useState(false);
+  const [isViewingDetails, setIsViewingDetails] = useState(false);
 
   const isExpired = new Date() > donation.pickupDeadline;
   const currentStatus = isExpired && donation.status === 'available' ? 'expired' : donation.status;
@@ -92,13 +94,15 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
           </Button>
         )}
          {role === 'donor' && (
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full" onClick={() => setIsViewingDetails(true)}>
+            <Info className="mr-2 h-4 w-4" />
             View Details
           </Button>
         )}
       </CardFooter>
     </Card>
     <ClaimDonationDialog open={isClaiming} onOpenChange={setIsClaiming} donation={donation} />
+    <DonationDetailsDialog open={isViewingDetails} onOpenChange={setIsViewingDetails} donation={donation} />
     </>
   );
 }
