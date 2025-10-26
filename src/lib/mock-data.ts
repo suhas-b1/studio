@@ -100,7 +100,7 @@ export const mockDonations: Donation[] = [
     id: "donation-7",
     title: "20 Liters of UHT Milk",
     description: "Cartons of long-life UHT milk with an expiry date of 6 months from now. Ideal for families and children's programs.",
-    imageUrl: "https://images.unsplash.com/photo-1627515431631-4652ba8512a2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://images.unsplash.com/photo-1550583724-b2692b85b150?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtaWxrfGVufDB8fHx8MTc2MTQ1ODgxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
     imageHint: "milk cartons",
     quantity: "20 cartons",
     type: "Dairy",
