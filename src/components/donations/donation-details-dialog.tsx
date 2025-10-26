@@ -10,9 +10,9 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import type { Donation } from '@/lib/types';
+import type { Donation, UserRole } from '@/lib/types';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Building, Phone, Mail, MapPin, Calendar, Clock, Package, Info, User, CheckCircle, XCircle } from 'lucide-react';
+import { Building, Phone, Mail, MapPin, Calendar, Clock, Package, Info, User, CheckCircle, XCircle, HeartHandshake } from 'lucide-react';
 import { Separator } from '../ui/separator';
 import { Badge } from '../ui/badge';
 import { mockUsers } from '@/lib/mock-data';
@@ -22,6 +22,8 @@ type DonationDetailsDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   donation: Donation;
+  role: UserRole;
+  onClaimClick: () => void;
 };
 
 const statusDetails = {
@@ -36,6 +38,8 @@ export function DonationDetailsDialog({
   open,
   onOpenChange,
   donation,
+  role,
+  onClaimClick,
 }: DonationDetailsDialogProps) {
 
   const claimedByNgo = donation.claimedByNgoId ? mockUsers.find(u => u.id === donation.claimedByNgoId) : null;
@@ -49,7 +53,7 @@ export function DonationDetailsDialog({
             {donation.title}
           </DialogTitle>
           <DialogDescription>
-            Detailed information about your donation listing.
+            Detailed information about the donation listing.
           </DialogDescription>
         </DialogHeader>
         
@@ -108,15 +112,20 @@ export function DonationDetailsDialog({
             </div>
         </div>
 
-        <DialogFooter className='mt-6'>
+        <DialogFooter className='mt-6 flex sm:justify-between gap-2'>
           <Button
             type="button"
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="w-full"
           >
             Close
           </Button>
+           {role === 'ngo' && donation.status === 'available' && (
+            <Button onClick={onClaimClick}>
+                <HeartHandshake className='mr-2 h-4 w-4' />
+                Claim This Item
+            </Button>
+           )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -88,21 +88,24 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
                 </div>
             )}
         </div>
-        {role === 'ngo' && currentStatus === 'available' && (
-          <Button className="w-full" onClick={() => setIsClaiming(true)}>
-            Claim Donation
-          </Button>
-        )}
-         {role === 'donor' && (
-          <Button variant="outline" className="w-full" onClick={() => setIsViewingDetails(true)}>
-            <Info className="mr-2 h-4 w-4" />
-            View Details
-          </Button>
-        )}
+        <div className="flex w-full gap-2">
+            <Button variant="outline" className="w-full" onClick={() => setIsViewingDetails(true)}>
+                <Info className="mr-2 h-4 w-4" />
+                View Details
+            </Button>
+            {role === 'ngo' && currentStatus === 'available' && (
+              <Button className="w-full" onClick={() => setIsClaiming(true)}>
+                Claim Donation
+              </Button>
+            )}
+        </div>
       </CardFooter>
     </Card>
     <ClaimDonationDialog open={isClaiming} onOpenChange={setIsClaiming} donation={donation} />
-    <DonationDetailsDialog open={isViewingDetails} onOpenChange={setIsViewingDetails} donation={donation} />
+    <DonationDetailsDialog open={isViewingDetails} onOpenChange={setIsViewingDetails} donation={donation} role={role} onClaimClick={() => {
+        setIsViewingDetails(false);
+        setIsClaiming(true);
+    }}/>
     </>
   );
 }
