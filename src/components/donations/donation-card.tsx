@@ -96,7 +96,7 @@ export function DonationCard({ donation, role }: { donation: Donation; role: Use
             {role === 'ngo' && currentStatus === 'available' && (
               <Button className="w-full" onClick={() => setIsClaiming(true)}>
                 <HeartHandshake className="mr-2 h-4 w-4" />
-                Claim
+                Claim Donation
               </Button>
             )}
         </div>
