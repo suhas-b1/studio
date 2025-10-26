@@ -131,7 +131,7 @@ export const mockDonations: Donation[] = [
     id: "donation-8",
     title: "Canned Goods Assortment",
     description: "Mixed case of canned goods including tuna, beans, and corn. All cans are in good condition with long expiry dates.",
-    imageUrl: "https://images.unsplash.com/photo-1625246328563-6e4804a8b753?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://images.unsplash.com/photo-1626607007733-d09228471d9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYW5uZWQlMjBnb29kc3xlbnwwfHx8fDE3NjE0NTg5NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     imageHint: "canned food",
     quantity: "1 large case",
     type: "Canned Goods",
