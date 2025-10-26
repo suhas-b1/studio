@@ -10,8 +10,12 @@ import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { Check, Package, ThumbsUp, Truck } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import { useState } from 'react';
+import { TrackDeliveryDialog } from '@/components/donations/track-delivery-dialog';
 
 function ClaimedDonationCard({ donation, trackingStatus }: { donation: any, trackingStatus: any }) {
+    const [isTracking, setIsTracking] = useState(false);
+    
     const statusSteps = [
         { name: 'Claimed', icon: ThumbsUp, completed: trackingStatus.claimed },
         { name: 'Out for Delivery', icon: Truck, completed: trackingStatus.outForDelivery },
@@ -26,6 +30,7 @@ function ClaimedDonationCard({ donation, trackingStatus }: { donation: any, trac
     })();
 
     return (
+        <>
         <Card className="overflow-hidden">
             <CardHeader className="flex-row gap-4 items-start p-4">
                 <div className="relative w-24 h-24 aspect-square rounded-md overflow-hidden">
@@ -80,12 +85,14 @@ function ClaimedDonationCard({ donation, trackingStatus }: { donation: any, trac
                                     <p className="text-xs text-muted-foreground">NourishConnect Logistics</p>
                                 </div>
                             </div>
-                            <Button variant="outline" size="sm">Track Live</Button>
+                            <Button variant="outline" size="sm" onClick={() => setIsTracking(true)}>Track Live</Button>
                         </div>
                     </div>
                 )}
             </CardContent>
         </Card>
+        <TrackDeliveryDialog open={isTracking} onOpenChange={setIsTracking} donation={donation} />
+        </>
     );
 }
 

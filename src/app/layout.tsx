@@ -5,6 +5,9 @@ import { cn } from "@/lib/utils";
 import { Poppins } from 'next/font/google'
 import { FirebaseClientProvider } from "@/firebase";
 
+// Leaflet CSS for map rendering
+import "leaflet/dist/leaflet.css";
+
 export const metadata: Metadata = {
   title: "Nourish Connect",
   description: "Connecting surplus food with those in need.",
