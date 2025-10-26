@@ -85,7 +85,7 @@ export const mockDonations: Donation[] = [
     id: "donation-6",
     title: "Bulk Rice and Pasta",
     description: "Unopened 20kg bags of basmati rice and 50 boxes of whole-wheat spaghetti. Perfect for stocking up a pantry.",
-    imageUrl: "https://plus.unsplash.com/premium_photo-1698053702146-2d33454a2656?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyaWNlfGVufDB8fHx8MTc2MTM3NTY5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
     imageHint: "rice pasta",
     quantity: "1 lot",
     type: "Pantry",
