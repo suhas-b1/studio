@@ -53,7 +53,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
     <>
       <SidebarMenu>
         <SidebarMenuItem>
-            <Link href={getHref('/dashboard')}>
+            <Link href={getHref('/dashboard')} prefetch={true}>
                 <SidebarMenuButton
                     isActive={pathname === '/dashboard'}
                     tooltip={'Dashboard'}
@@ -76,7 +76,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
         <CollapsibleContent>
             <SidebarMenu className="py-2 pl-6">
                 <SidebarMenuItem>
-                    <Link href={getHref('/donations/new')}>
+                    <Link href={getHref('/donations/new')} prefetch={true}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/donations/new'} className="w-full justify-start">
                             <PlusCircle />
                             <span>New Donation</span>
@@ -84,7 +84,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
                     </Link>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <Link href={getHref('/donations')}>
+                    <Link href={getHref('/donations')} prefetch={true}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/donations' && role === 'donor'} className="w-full justify-start">
                             <Package />
                             <span>My Donations</span>
@@ -92,7 +92,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
                     </Link>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <Link href={getHref('/impact')}>
+                    <Link href={getHref('/impact')} prefetch={true}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/impact' && role === 'donor'} className="w-full justify-start">
                             <BarChart2 />
                             <span>Impact</span>
@@ -114,7 +114,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
         <CollapsibleContent>
             <SidebarMenu className="py-2 pl-6">
                  <SidebarMenuItem>
-                    <Link href={getHref('/matches')}>
+                    <Link href={getHref('/matches')} prefetch={true}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/matches'} className="w-full justify-start">
                             <BrainCircuit />
                             <span>Smart Matches</span>
@@ -122,7 +122,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
                     </Link>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <Link href={getHref('/claims')}>
+                    <Link href={getHref('/claims')} prefetch={true}>
                         <SidebarMenuButton size="sm" isActive={pathname === '/claims' && role === 'ngo'} className="w-full justify-start">
                             <HeartHandshake />
                             <span>My Claims</span>
@@ -136,7 +136,7 @@ export function SidebarNav({ role }: { role: UserRole }) {
        <SidebarMenu className="mt-auto">
         {commonLinks.map((link) => (
             <SidebarMenuItem key={link.href}>
-                <Link href={`${link.href}?role=${role}`}>
+                <Link href={`${link.href}?role=${role}`} prefetch={true}>
                 <SidebarMenuButton
                     isActive={pathname === link.href}
                     tooltip={link.label}
